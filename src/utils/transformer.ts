@@ -2,14 +2,13 @@
 
 import * as ts from 'typescript';
 import {Checker} from './checker';
-import {TsCompilerInstance} from 'ts-jest';
 import {MainTransformer} from './actors/type-factories/main.transformer';
 import {Forger} from '../forger';
 
 export const version = 1;
 export const name = 'forgerTransformer';
 
-export function factory(compilerInstance: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
+export function factory(compilerInstance: any): ts.TransformerFactory<ts.SourceFile> {
   if (!compilerInstance?.program) throw new Error('Program is undefined!');
   return transformer(compilerInstance.program);
 }

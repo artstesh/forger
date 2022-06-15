@@ -2,8 +2,8 @@
   "name": "@artstesh/forger",
   "version": "1.0.0",
   "description": "A legal way to forge everything you want ;)",
-  "main": "lib/forger.js",
-  "types": "lib/forger.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",

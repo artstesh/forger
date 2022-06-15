@@ -74,3 +74,5 @@ export class SpoofSettings {
    */
   arrayLength?: number = 3;
 }
+
+export default SpoofSettings;

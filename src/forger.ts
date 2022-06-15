@@ -22,3 +22,5 @@ export class Forger {
     return MainFactory.produce(args[0], settings) as T;
   }
 }
+
+export default Forger;

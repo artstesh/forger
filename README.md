@@ -7,7 +7,9 @@ Legal way to forge anything ;)
 
 Forger is designed to make it easier to write test code in terms of creating auto-generated objects/primitives, allowing the developer to focus on the really important things instead of inventing test data.
 
-### Review
+See details in [Wiki](https://github.com/artstesh/forger/wiki)
+
+### Overview
 
 Forger is designed to save the developer from manually creating numerous test data, saving time and not littering the code with declarations of data that is not important for the test, thus facilitating both writing and reading tests.
 
@@ -16,14 +18,14 @@ Consider a small example:
 ```typescript
 // interface Student {name: string, age: number}
 describe('student.service', () => {
-	it('save success', () => {
-		const student = Forger.create<Student>();
-		//
-		const result = studentService.save(student);
-		//
-		console.log(student) // { name: 'I8SE1ou3ZD', age: 345 }
-		expect(result).toBeTruthy();
-	})
+   it('save success', () => {
+      const student = Forger.create<Student>();
+      //
+      const result = studentService.save(student);
+      //
+      console.log(student) // { name: 'I8SE1ou3ZD', age: 345 }
+      expect(result).toBeTruthy();
+   })
 });
 ```
 
