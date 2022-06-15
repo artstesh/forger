@@ -1,8 +1,8 @@
-import {ITypeTransformer} from './i-type.transformer';
+import { ITypeTransformer } from './i-type.transformer';
 import * as ts from 'typescript';
-import {SyntaxKind} from 'typescript';
-import {ForgerElement} from '../../../models/forger-element.model';
-import {ForgerType} from '../../../models/forger.type';
+import { SyntaxKind } from 'typescript';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { ForgerType } from '../../../models/forger.type';
 
 export class ValueTypeTransformer implements ITypeTransformer {
   private static factory = new ValueTypeTransformer();

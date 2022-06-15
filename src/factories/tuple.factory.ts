@@ -1,8 +1,8 @@
-import {ITypeFactory} from './i-type.factory';
-import {ForgerElement} from '../models/forger-element.model';
-import {ForgerType} from '../models/forger.type';
-import {SpoofSettings} from '../models/spoof.settings';
-import {MainFactory} from './main.factory';
+import { ITypeFactory } from './i-type.factory';
+import { ForgerElement } from '../models/forger-element.model';
+import { ForgerType } from '../models/forger.type';
+import { SpoofSettings } from '../models/spoof.settings';
+import { MainFactory } from './main.factory';
 
 export class TupleFactory implements ITypeFactory {
   private static factory: TupleFactory = new TupleFactory();

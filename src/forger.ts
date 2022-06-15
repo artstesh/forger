@@ -1,12 +1,11 @@
-import {SpoofSettings} from './models/spoof.settings';
-import {ForgerElement} from './models/forger-element.model';
-import {MainFactory} from './factories/main.factory';
+import { SpoofSettings } from './models/spoof.settings';
+import { ForgerElement } from './models/forger-element.model';
+import { MainFactory } from './factories/main.factory';
 
 /**
  * The entry point for creating fakes
  */
 export class Forger {
-
   /**
    * Creation of a forgery
    * @param settings The {@link SpoofSettings}

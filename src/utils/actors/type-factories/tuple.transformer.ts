@@ -1,8 +1,8 @@
 import * as ts from 'typescript';
-import {ITypeTransformer} from './i-type.transformer';
-import {ForgerElement} from '../../../models/forger-element.model';
-import {ForgerType} from '../../../models/forger.type';
-import {MainTransformer} from './main.transformer';
+import { ITypeTransformer } from './i-type.transformer';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { ForgerType } from '../../../models/forger.type';
+import { MainTransformer } from './main.transformer';
 
 export class TupleTransformer implements ITypeTransformer {
   private static factory = new TupleTransformer();

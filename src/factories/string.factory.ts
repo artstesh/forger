@@ -1,7 +1,7 @@
-import {SpoofSettings} from '../models/spoof.settings';
-import {ForgerElement} from '../models/forger-element.model';
-import {ITypeFactory} from './i-type.factory';
-import {ForgerType} from '../models/forger.type';
+import { SpoofSettings } from '../models/spoof.settings';
+import { ForgerElement } from '../models/forger-element.model';
+import { ITypeFactory } from './i-type.factory';
+import { ForgerType } from '../models/forger.type';
 
 export class StringFactory implements ITypeFactory {
   private static factory: StringFactory = new StringFactory();

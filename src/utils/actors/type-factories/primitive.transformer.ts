@@ -1,9 +1,9 @@
 import * as ts from 'typescript';
-import {ITypeTransformer} from './i-type.transformer';
-import {Checker} from '../../checker';
-import {ForgerElement} from '../../../models/forger-element.model';
-import {MainTransformer} from './main.transformer';
-import {ForgerType} from '../../../models/forger.type';
+import { ITypeTransformer } from './i-type.transformer';
+import { Checker } from '../../checker';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { MainTransformer } from './main.transformer';
+import { ForgerType } from '../../../models/forger.type';
 
 export class PrimitiveTransformer implements ITypeTransformer {
   private static factory = new PrimitiveTransformer();

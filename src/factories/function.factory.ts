@@ -1,8 +1,8 @@
-import {ForgerElement} from '../models/forger-element.model';
-import {ForgerType} from '../models/forger.type';
-import {ITypeFactory} from './i-type.factory';
-import {SpoofSettings} from '../models/spoof.settings';
-import {MainFactory} from './main.factory';
+import { ForgerElement } from '../models/forger-element.model';
+import { ForgerType } from '../models/forger.type';
+import { ITypeFactory } from './i-type.factory';
+import { SpoofSettings } from '../models/spoof.settings';
+import { MainFactory } from './main.factory';
 
 export class FunctionFactory implements ITypeFactory {
   private static factory: FunctionFactory = new FunctionFactory();

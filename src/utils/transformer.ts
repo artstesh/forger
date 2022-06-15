@@ -1,9 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
 
 import * as ts from 'typescript';
-import {Checker} from './checker';
-import {MainTransformer} from './actors/type-factories/main.transformer';
-import {Forger} from '../forger';
+import { Checker } from './checker';
+import { MainTransformer } from './actors/type-factories/main.transformer';
+import { Forger } from '../forger';
 
 export const version = 1;
 export const name = 'forgerTransformer';

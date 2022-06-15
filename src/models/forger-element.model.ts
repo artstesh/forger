@@ -1,4 +1,4 @@
-import {ForgerType} from './forger.type';
+import { ForgerType } from './forger.type';
 
 export class ForgerElement {
   name?: string;

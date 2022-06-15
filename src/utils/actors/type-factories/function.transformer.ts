@@ -1,9 +1,9 @@
-import {ITypeTransformer} from './i-type.transformer';
+import { ITypeTransformer } from './i-type.transformer';
 import * as ts from 'typescript';
-import {SyntaxKind} from 'typescript';
-import {ForgerElement} from '../../../models/forger-element.model';
-import {ForgerType} from '../../../models/forger.type';
-import {MainTransformer} from './main.transformer';
+import { SyntaxKind } from 'typescript';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { ForgerType } from '../../../models/forger.type';
+import { MainTransformer } from './main.transformer';
 
 export class FunctionTransformer implements ITypeTransformer {
   private static factory = new FunctionTransformer();

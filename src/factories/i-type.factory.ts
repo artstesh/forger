@@ -1,5 +1,5 @@
-import {ForgerElement} from '../models/forger-element.model';
-import {SpoofSettings} from '../models/spoof.settings';
+import { ForgerElement } from '../models/forger-element.model';
+import { SpoofSettings } from '../models/spoof.settings';
 
 export interface ITypeFactory {
   produce(element: ForgerElement, settings: SpoofSettings): any;

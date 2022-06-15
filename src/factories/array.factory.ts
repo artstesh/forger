@@ -1,8 +1,8 @@
-import {ITypeFactory} from './i-type.factory';
-import {ForgerElement} from '../models/forger-element.model';
-import {ForgerType} from '../models/forger.type';
-import {SpoofSettings} from '../models/spoof.settings';
-import {MainFactory} from './main.factory';
+import { ITypeFactory } from './i-type.factory';
+import { ForgerElement } from '../models/forger-element.model';
+import { ForgerType } from '../models/forger.type';
+import { SpoofSettings } from '../models/spoof.settings';
+import { MainFactory } from './main.factory';
 
 export class ArrayFactory implements ITypeFactory {
   private static factory: ArrayFactory = new ArrayFactory();
@@ -15,8 +15,6 @@ export class ArrayFactory implements ITypeFactory {
 
   public produce(element: ForgerElement, settings: SpoofSettings): any {
     if (!element.children?.length) return [];
-    return Array.from({ length: settings.arrayLength! }).map(() =>
-      MainFactory.produce(element.children![0], settings),
-    );
+    return Array.from({ length: settings.arrayLength! }).map(() => MainFactory.produce(element.children![0], settings));
   }
 }

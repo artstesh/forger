@@ -1,14 +1,14 @@
-import {StringFactory} from './string.factory';
-import {NumberFactory} from './number.factory';
-import {DateFactory} from './date.factory';
-import {SpoofSettings} from '../models/spoof.settings';
-import {ForgerElement} from '../models/forger-element.model';
-import {BoolFactory} from './bool.factory';
-import {EnumFactory} from './enum.factory';
-import {FunctionFactory} from './function.factory';
-import {TupleFactory} from './tuple.factory';
-import {ArrayFactory} from './array.factory';
-import {ObjectFactory} from './object.factory';
+import { StringFactory } from './string.factory';
+import { NumberFactory } from './number.factory';
+import { DateFactory } from './date.factory';
+import { SpoofSettings } from '../models/spoof.settings';
+import { ForgerElement } from '../models/forger-element.model';
+import { BoolFactory } from './bool.factory';
+import { EnumFactory } from './enum.factory';
+import { FunctionFactory } from './function.factory';
+import { TupleFactory } from './tuple.factory';
+import { ArrayFactory } from './array.factory';
+import { ObjectFactory } from './object.factory';
 
 export class MainFactory {
   private static factories = [

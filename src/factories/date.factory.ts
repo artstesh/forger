@@ -1,8 +1,8 @@
-import {NumberFactory} from './number.factory';
-import {SpoofSettings} from '../models/spoof.settings';
-import {ForgerElement} from '../models/forger-element.model';
-import {ITypeFactory} from './i-type.factory';
-import {ForgerType} from '../models/forger.type';
+import { NumberFactory } from './number.factory';
+import { SpoofSettings } from '../models/spoof.settings';
+import { ForgerElement } from '../models/forger-element.model';
+import { ITypeFactory } from './i-type.factory';
+import { ForgerType } from '../models/forger.type';
 
 // noinspection SuspiciousTypeOfGuard
 export class DateFactory implements ITypeFactory {

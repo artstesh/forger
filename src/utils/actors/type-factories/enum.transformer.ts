@@ -1,8 +1,8 @@
-import {ITypeTransformer} from './i-type.transformer';
+import { ITypeTransformer } from './i-type.transformer';
 import * as ts from 'typescript';
-import {ForgerElement} from '../../../models/forger-element.model';
-import {ForgerType} from '../../../models/forger.type';
-import {Checker} from '../../checker';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { ForgerType } from '../../../models/forger.type';
+import { Checker } from '../../checker';
 
 export class EnumTransformer implements ITypeTransformer {
   private static factory = new EnumTransformer();
