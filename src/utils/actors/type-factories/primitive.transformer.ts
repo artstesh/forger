@@ -12,7 +12,9 @@ export class PrimitiveTransformer implements ITypeTransformer {
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const refNode = node as ts.TypeReferenceNode;
     const type = Checker.Checker.getTypeFromTypeNode(refNode);
-    counter = PrimitiveTransformer.addTypeToCounter(PrimitiveTransformer.getTypeName(type), {});
+    const typeName = PrimitiveTransformer.getTypeName(type);
+    counter = PrimitiveTransformer.addTypeToCounter(typeName, counter);
+    if (counter[typeName] > MainTransformer.CircularDepth) return { type: ForgerType.Null };
     const result: ForgerElement = { type: ForgerType.Object, children: [] };
     type.symbol.members?.forEach((m) => {
       if (!m.valueDeclaration) return;

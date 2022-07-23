@@ -177,4 +177,14 @@ describe('Object factory', () => {
             })
         })
     })
+
+    describe('specific cases', () => {
+
+        it('object array circular', () => {
+            interface Test { tests: Test[]; }
+            const result = Forger.create<Test>()!;
+            //
+            expect(result).not.toBeUndefined();
+        });
+    })
 })
