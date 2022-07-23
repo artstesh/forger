@@ -18,10 +18,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
       if (!m.valueDeclaration) return;
       const propType = Checker.Checker.getTypeAtLocation(m.valueDeclaration);
       const propNode = (m.valueDeclaration as ts.PropertyDeclaration | ts.SignatureDeclaration)?.type;
-      if (!propNode) result.children!.push({ name: m.name, type: ForgerType.Null });
-      else if (PrimitiveTransformer.isInnerObject(propType)) {
-        result.children!.push({ name: m.name, ...this.fillObject(propType, counter) });
-      } else result.children!.push({ name: m.name, ...MainTransformer.create(propNode, counter) });
+      result.children?.push(this.extractForgerElement(propType, m.name, counter, propNode));
     });
     return result;
   }
@@ -58,15 +55,17 @@ export class PrimitiveTransformer implements ITypeTransformer {
       if (!m.name) return;
       const propType = Checker.Checker.getTypeAtLocation(m.name);
       const propNode = (m as ts.PropertyDeclaration | ts.SignatureDeclaration)?.type;
-      if (!propNode) result.children!.push({ name: m.name.getText(), type: ForgerType.Null });
-      else {
-        const value = PrimitiveTransformer.isInnerObject(propType)
-          ? this.fillObject(propType, counter)
-          : MainTransformer.create(propNode, counter);
-        result.children!.push({ name: m.name.getText(), ...value });
-      }
+      result.children?.push(this.extractForgerElement(propType, m.name.getText(), counter, propNode));
     });
     return result;
+  }
+
+  private extractForgerElement(propType: ts.Type, propName: string, counter: { [type: string]: number }, propNode?: ts.TypeNode): ForgerElement {
+    if (!propNode) return { name: propName, type: ForgerType.Null };
+    const value = PrimitiveTransformer.isInnerObject(propType)
+        ? this.fillObject(propType, counter)
+        : MainTransformer.create(propNode, counter);
+    return { name: propName, ...value };
   }
 
   public isApplicable(node: ts.Node): boolean {

@@ -45,9 +45,9 @@
     "tslint": "6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "ttypescript": "1.5.13",
-    "typescript": "^4.4.2"
+    "typescript": "^4.3.5"
   },
   "peerDependencies": {
-    "typescript": "^4.4.2"
+    "typescript": "^4.3.5"
   }
 }
