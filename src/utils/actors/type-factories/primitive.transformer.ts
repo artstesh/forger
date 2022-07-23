@@ -20,7 +20,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
       if (!m.valueDeclaration) return;
       const propType = Checker.Checker.getTypeAtLocation(m.valueDeclaration);
       const propNode = (m.valueDeclaration as ts.PropertyDeclaration | ts.SignatureDeclaration)?.type;
-      result.children?.push(this.extractForgerElement(propType, m.name, counter, propNode));
+      result.children?.push(this.extractForgerElement(propType, m.name, {...counter}, propNode));
     });
     return result;
   }
@@ -57,7 +57,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
       if (!m.name) return;
       const propType = Checker.Checker.getTypeAtLocation(m.name);
       const propNode = (m as ts.PropertyDeclaration | ts.SignatureDeclaration)?.type;
-      result.children?.push(this.extractForgerElement(propType, m.name.getText(), counter, propNode));
+      result.children?.push(this.extractForgerElement(propType, m.name.getText(), {...counter}, propNode));
     });
     return result;
   }
