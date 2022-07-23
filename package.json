@@ -1,6 +1,6 @@
 {
   "name": "@artstesh/forger",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A legal way to forge everything you want ;)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

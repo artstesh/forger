@@ -60,11 +60,16 @@ export class PrimitiveTransformer implements ITypeTransformer {
     return result;
   }
 
-  private extractForgerElement(propType: ts.Type, propName: string, counter: { [type: string]: number }, propNode?: ts.TypeNode): ForgerElement {
+  private extractForgerElement(
+    propType: ts.Type,
+    propName: string,
+    counter: { [type: string]: number },
+    propNode?: ts.TypeNode,
+  ): ForgerElement {
     if (!propNode) return { name: propName, type: ForgerType.Null };
     const value = PrimitiveTransformer.isInnerObject(propType)
-        ? this.fillObject(propType, counter)
-        : MainTransformer.create(propNode, counter);
+      ? this.fillObject(propType, counter)
+      : MainTransformer.create(propNode, counter);
     return { name: propName, ...value };
   }
 

@@ -8,7 +8,7 @@ import { DateTransformer } from './date.transformer';
 import { EnumTransformer } from './enum.transformer';
 import { PrimitiveTransformer } from './primitive.transformer';
 import { ForgerType } from '../../../models/forger.type';
-import {ArrayInterfaceTransformer} from "./array-interface.transformer";
+import { ArrayInterfaceTransformer } from './array-interface.transformer';
 
 export class MainTransformer {
   public static _circularDepth = 1;
