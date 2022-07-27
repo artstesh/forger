@@ -8,6 +8,23 @@ describe('String factory', () => {
                 //
                 expect(typeof element === 'string');
             })
+
+            it('correct union with null type', () => {
+                const element = Forger.create<null | string>()!;
+                const element2 = Forger.create<string | null>()!;
+                //
+                expect(typeof element === 'string');
+                expect(typeof element2 === 'string');
+            })
+
+            it('correct union with undefined type', () => {
+                const element = Forger.create<undefined | string>()!;
+                const element2 = Forger.create<string | undefined>()!;
+                //
+                expect(typeof element === 'string');
+                expect(typeof element2 === 'string');
+            })
+
             it('not the same', () => {
                 const elements = Forger.create<string[]>();
                 //

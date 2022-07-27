@@ -27,11 +27,19 @@ describe('Enum factory', () => {
         expect(set.size > 1).toBeTruthy();
     })
 
-    describe('function result', () => {
-        it('success lambda result', () => {
-            const result = Forger.create<()=> UnderTestEnum>()!();
-            //
-            expect(Object.values(UnderTestEnum).includes(result)).toBeTruthy();
-        })
+    it('correct union with null type', () => {
+        const element = Forger.create<null | UnderTestEnum>()!;
+        const element2 = Forger.create<UnderTestEnum | null>()!;
+        //
+        expect(Object.values(UnderTestEnum).includes(element)).toBeTruthy();
+        expect(Object.values(UnderTestEnum).includes(element2)).toBeTruthy();
+    })
+
+    it('correct union with undefined type', () => {
+        const element = Forger.create<undefined | UnderTestEnum>()!;
+        const element2 = Forger.create<UnderTestEnum | undefined>()!;
+        //
+        expect(Object.values(UnderTestEnum).includes(element)).toBeTruthy();
+        expect(Object.values(UnderTestEnum).includes(element2)).toBeTruthy();
     })
 })

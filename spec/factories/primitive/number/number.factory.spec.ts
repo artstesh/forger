@@ -8,7 +8,24 @@ describe('Number factory', () => {
                 //
                 expect(typeof element === 'number');
             })
+
+            it('correct union with null type', () => {
+                const element = Forger.create<null | number>()!;
+                const element2 = Forger.create<number | null>()!;
+                //
+                expect(typeof element === 'number');
+                expect(typeof element2 === 'number');
+            })
+
+            it('correct union with undefined type', () => {
+                const element = Forger.create<undefined | number>()!;
+                const element2 = Forger.create<number | undefined>()!;
+                //
+                expect(typeof element === 'number');
+                expect(typeof element2 === 'number');
+            })
         });
+
         describe('custom settings', () => {
             it('follow up limit', () => {
                 const upLimit = 3;

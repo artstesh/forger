@@ -184,14 +184,50 @@ describe('Object factory', () => {
             interface Test { tests: Test[]; }
             const result = Forger.create<Test>()!;
             //
-            expect(result).not.toBeUndefined();
+            expect(result).toBeDefined();
+        });
+
+        it('correct union with null type', () => {
+            interface Test { field: string }
+            const result = Forger.create<Test | null>()!;
+            const result2 = Forger.create<null | Test>()!;
+            //
+            expect(result).toBeDefined();
+            expect(result2).toBeDefined();
+        });
+
+        it('correct union with undefined type', () => {
+            interface Test { field: string }
+            const result = Forger.create<Test | undefined>()!;
+            const result2 = Forger.create<undefined | Test>()!;
+            //
+            expect(result).toBeDefined();
+            expect(result2).toBeDefined();
+        });
+
+        it('correct union with null type of property', () => {
+
+            interface Test { field: string | null;field2: null | string;field3?: string }
+            const result = Forger.create<Test>()!;
+            //
+            expect(typeof result.field === 'string');
+            expect(typeof result.field2 === 'string');
+            expect(typeof result.field3 === 'string');
+        });
+
+        it('correct union with undefined type of property', () => {
+            interface Test { field: string | undefined;field2: undefined | string;field3?: string }
+            const result = Forger.create<Test>()!;
+            //
+            expect(typeof result.field === 'string');
+            expect(typeof result.field2 === 'string');
+            expect(typeof result.field3 === 'string');
         });
 
         it('object array circular count by prop', () => {
             interface InnerTest {field: number}
             interface Test { tests: InnerTest[]; tests2: InnerTest[]; tests3: InnerTest[];}
             const result = Forger.create<Test>({}, 1)!;
-            console.log(result);
             //
             expect(result.tests3[0]).not.toBeNull();
         });
