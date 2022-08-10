@@ -2,13 +2,10 @@ import {Forger} from "../src";
 
 describe('isolated', () => {
 
-    it('generate field\'s grandparent props', () => {
-        interface GrandParent {grandParentProp: number}
-        interface Parent extends GrandParent {parentProp: number}
-        interface Child extends Parent {childProp: number}
-        interface Test {field: Child}
-        const result = Forger.create<Test>()!;
+    it('union literals', () => {
+        interface Test {field: string}
+        const result = Forger.create<('a' | Test)[]>({arrayLength: 20})!;
         //
-        expect(result.field.grandParentProp).toBeTruthy();
+        expect(result.filter(e => typeof e === 'string').length).toBeTruthy();
     });
 })

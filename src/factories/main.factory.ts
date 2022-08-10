@@ -9,6 +9,8 @@ import { FunctionFactory } from './function.factory';
 import { TupleFactory } from './tuple.factory';
 import { ArrayFactory } from './array.factory';
 import { ObjectFactory } from './object.factory';
+import { LiteralFactory } from './literal.factory';
+import { UnionFactory } from './union.factory';
 
 export class MainFactory {
   private static factories = [
@@ -21,6 +23,8 @@ export class MainFactory {
     DateFactory.instance(),
     EnumFactory.instance(),
     FunctionFactory.instance(),
+    LiteralFactory.instance(),
+    UnionFactory.instance(),
   ];
 
   public static produce(element: ForgerElement, settings: SpoofSettings): any {

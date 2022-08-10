@@ -224,6 +224,14 @@ describe('Object factory', () => {
             expect(typeof result.field3 === 'string');
         });
 
+        it('literals are different', () => {
+            interface Test { field: ('a' | 1)[] }
+            const result = Forger.create<Test | undefined>({arrayLength: 20})!;
+            //
+            expect(result.field.filter(e => e === 'a').length).toBeTruthy();
+            expect(result.field.filter(e => e === 1).length).toBeTruthy();
+        });
+
         it('object array circular count by prop', () => {
             interface InnerTest {field: number}
             interface Test { tests: InnerTest[]; tests2: InnerTest[]; tests3: InnerTest[];}

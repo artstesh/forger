@@ -9,4 +9,6 @@ export enum ForgerType {
   Date,
   Bool,
   Null,
+  Literal,
+  Union,
 }
