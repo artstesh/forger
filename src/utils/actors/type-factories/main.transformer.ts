@@ -1,15 +1,15 @@
-import {ForgerElement} from '../../../models/forger-element.model';
-import {ArrayTransformer} from './array.transformer';
+import { ForgerElement } from '../../../models/forger-element.model';
+import { ArrayTransformer } from './array.transformer';
 import * as ts from 'typescript';
-import {TupleTransformer} from './tuple.transformer';
-import {FunctionTransformer} from './function.transformer';
-import {ValueTypeTransformer} from './value-type.transformer';
-import {DateTransformer} from './date.transformer';
-import {EnumTransformer} from './enum.transformer';
-import {PrimitiveTransformer} from './primitive.transformer';
-import {ForgerType} from '../../../models/forger.type';
-import {ArrayInterfaceTransformer} from './array-interface.transformer';
-import {UnionTransformer} from './union.transformer';
+import { TupleTransformer } from './tuple.transformer';
+import { FunctionTransformer } from './function.transformer';
+import { ValueTypeTransformer } from './value-type.transformer';
+import { DateTransformer } from './date.transformer';
+import { EnumTransformer } from './enum.transformer';
+import { PrimitiveTransformer } from './primitive.transformer';
+import { ForgerType } from '../../../models/forger.type';
+import { ArrayInterfaceTransformer } from './array-interface.transformer';
+import { UnionTransformer } from './union.transformer';
 
 export class MainTransformer {
   public static _circularDepth = 1;
