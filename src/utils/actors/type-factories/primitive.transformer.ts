@@ -80,6 +80,6 @@ export class PrimitiveTransformer implements ITypeTransformer {
   }
 
   public isApplicable(node: ts.Node): boolean {
-    return ts.isTypeReferenceNode(node);
+    return ts.isTypeReferenceNode(node) || ts.isTypeLiteralNode(node);
   }
 }

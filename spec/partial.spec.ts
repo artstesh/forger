@@ -3,9 +3,10 @@ import {Forger} from "../src";
 describe('isolated', () => {
 
     it('union literals', () => {
-        interface Test {field: string}
-        const result = Forger.create<('a' | Test)[]>({arrayLength: 20})!;
+        interface Test {prop: {field: string}}
+        const result = Forger.create<Test>()!;
         //
-        expect(result.filter(e => typeof e === 'string').length).toBeTruthy();
+        console.log(result);
+        expect(result.prop?.field).toBeTruthy();
     });
 })
