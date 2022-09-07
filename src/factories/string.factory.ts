@@ -32,7 +32,7 @@ export class StringFactory implements ITypeFactory {
   public produce(element: ForgerElement, settings: SpoofSettings): any {
     settings = settings ? { ...new SpoofSettings(), ...settings } : new SpoofSettings();
     const set = StringFactory.getAppropriateSet(settings);
-    while (set.length < settings.stringLength!) {
+    while (set.length > 0 && set.length < settings.stringLength!) {
       set.push(...StringFactory.getAppropriateSet(settings));
     }
     return set

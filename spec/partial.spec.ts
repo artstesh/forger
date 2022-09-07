@@ -3,10 +3,10 @@ import {Forger} from "../src";
 describe('isolated', () => {
 
     it('union literals', () => {
-        interface Test {prop: {field: string}}
-        const result = Forger.create<Test>()!;
+        const result = Forger.create<string>({stringNumbers: false, stringSpecial: false,
+        stringUpCase: false, stringLowCase: false})!;
         //
-        console.log(result);
-        expect(result.prop?.field).toBeTruthy();
+        console.log({ result });
+        expect(result).toEqual('');
     });
 })
