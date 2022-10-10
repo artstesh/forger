@@ -6,7 +6,7 @@ import { MainTransformer } from './main.transformer';
 
 export class ArrayInterfaceTransformer implements ITypeTransformer {
   private static factory = new ArrayInterfaceTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => ArrayInterfaceTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const arrNode = node as ts.TypeReferenceNode;

@@ -5,7 +5,7 @@ import { ForgerType } from '../models/forger.type';
 
 export class StringFactory implements ITypeFactory {
   private static factory: StringFactory = new StringFactory();
-  public static instance = () => this.factory;
+  public static instance = () => StringFactory.factory;
   private constructor() {}
 
   private static getAppropriateSet(settings: SpoofSettings) {

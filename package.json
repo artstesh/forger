@@ -14,7 +14,8 @@
     "lint": "tslint -p tsconfig.json",
     "test": "ttsc -p tsconfig.test.json && jest --config jest.config.js",
     "build": "tsc -p tsconfig.json",
-    "pre-jest": "ttsc -p tsconfig.test.json"
+    "pre-jest": "ttsc -p tsconfig.test.json",
+    "debug-jest": "jest --config jest.config.js -- /spec/partial.spec.ts --clearCache"
   },
   "keywords": [
     "forgery",

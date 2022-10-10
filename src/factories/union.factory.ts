@@ -6,7 +6,7 @@ import SpoofSettings from '../models/spoof.settings';
 
 export class UnionFactory implements ITypeFactory {
   private static factory: UnionFactory = new UnionFactory();
-  public static instance = () => this.factory;
+  public static instance = () => UnionFactory.factory;
   private constructor() {}
 
   public isApplicable(element: ForgerElement): boolean {

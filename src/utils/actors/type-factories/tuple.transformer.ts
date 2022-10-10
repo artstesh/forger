@@ -6,7 +6,7 @@ import { MainTransformer } from './main.transformer';
 
 export class TupleTransformer implements ITypeTransformer {
   private static factory = new TupleTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => TupleTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const result: ForgerElement = { type: ForgerType.Tuple, children: [] };

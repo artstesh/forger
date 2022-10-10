@@ -5,8 +5,7 @@ import { SpoofSettings } from '../models/spoof.settings';
 
 export class EnumFactory implements ITypeFactory {
   private static factory: EnumFactory = new EnumFactory();
-  public static instance = () => this.factory;
-  private constructor() {}
+  public static instance = () => EnumFactory.factory;
 
   public isApplicable(element: ForgerElement): boolean {
     return element.type === ForgerType.Enum;

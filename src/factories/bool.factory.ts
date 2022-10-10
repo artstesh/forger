@@ -5,7 +5,7 @@ import { SpoofSettings } from '../models/spoof.settings';
 
 export class BoolFactory implements ITypeFactory {
   private static factory: BoolFactory = new BoolFactory();
-  public static instance = () => this.factory;
+  public static instance = () => BoolFactory.factory;
   private constructor() {}
 
   public isApplicable(element: ForgerElement): boolean {

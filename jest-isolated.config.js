@@ -1,7 +1,7 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: 'ts-jest',
-  testNamePattern: 'partial.spec.ts',
+  cache: false,
   globals: {
     'ts-jest': {
       compiler: 'ttypescript',

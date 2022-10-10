@@ -6,7 +6,7 @@ import { ForgerType } from '../../../models/forger.type';
 
 export class ValueTypeTransformer implements ITypeTransformer {
   private static factory = new ValueTypeTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => ValueTypeTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const typeNode = node as ts.TypeNode;

@@ -7,7 +7,7 @@ import { MainTransformer } from './main.transformer';
 
 export class FunctionTransformer implements ITypeTransformer {
   private static factory = new FunctionTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => FunctionTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const methodNode = node as ts.FunctionTypeNode;

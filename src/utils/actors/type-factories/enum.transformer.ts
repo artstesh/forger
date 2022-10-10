@@ -6,7 +6,7 @@ import { Checker } from '../../checker';
 
 export class EnumTransformer implements ITypeTransformer {
   private static factory = new EnumTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => EnumTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const type = Checker.Checker.getTypeFromTypeNode(node as ts.TypeNode);

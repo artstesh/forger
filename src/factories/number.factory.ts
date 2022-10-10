@@ -5,7 +5,7 @@ import { ITypeFactory } from './i-type.factory';
 
 export class NumberFactory implements ITypeFactory {
   private static factory: NumberFactory = new NumberFactory();
-  public static instance = () => this.factory;
+  public static instance = () => NumberFactory.factory;
   private constructor() {}
 
   public static get(settings?: SpoofSettings): number {

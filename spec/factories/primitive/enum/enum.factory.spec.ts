@@ -19,10 +19,39 @@ describe('Enum factory', () => {
         expect(enums!.length).toBe(length);
     })
 
-    it('not the same', () => {
-        const testEnums = Array.from({length:10}).map(() => Forger.create<UnderTestEnum>());
+    it('Not the same in array', () => {
+        const length = 10;
+        const enums = Forger.create<UnderTestEnum[]>({arrayLength: length});
         //
-        const set = new Set(testEnums);
+        const set = new Set(enums);
+        //
+        expect(set.size > 1).toBeTruthy();
+    })
+
+    it('Not the same in objects', () => {
+        interface Test {field: UnderTestEnum}
+        const length = 10;
+        const objs = Forger.create<Test[]>({arrayLength: length})!;
+        //
+        const set = new Set(objs.map(e => e.field));
+        //
+        expect(set.size > 1).toBeTruthy();
+    })
+
+    it('Not the same in array of objects', () => {
+        interface Test {field: UnderTestEnum}
+        const length = 10;
+        const objs = Array.from({length}).map(() => Forger.create<Test>())!;
+        //
+        const set = new Set(objs.map(e => e!.field));
+        //
+        expect(set.size > 1).toBeTruthy();
+    })
+
+    it('Bulk creation, not the same', () => {
+        const enums = Array.from({length:10}).map(() => Forger.create<UnderTestEnum>());
+        //
+        const set = new Set(enums);
         //
         expect(set.size > 1).toBeTruthy();
     })

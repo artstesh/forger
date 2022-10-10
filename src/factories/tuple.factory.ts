@@ -6,7 +6,7 @@ import { MainFactory } from './main.factory';
 
 export class TupleFactory implements ITypeFactory {
   private static factory: TupleFactory = new TupleFactory();
-  public static instance = () => this.factory;
+  public static instance = () => TupleFactory.factory;
   private constructor() {}
 
   public isApplicable(element: ForgerElement): boolean {

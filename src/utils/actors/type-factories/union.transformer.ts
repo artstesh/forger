@@ -7,7 +7,7 @@ import { MainTransformer } from './main.transformer';
 
 export class UnionTransformer implements ITypeTransformer {
   private static factory = new UnionTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => UnionTransformer.factory;
 
   public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
     const innerNodes = UnionTransformer.filterAllowedNodes(node as ts.UnionTypeNode);

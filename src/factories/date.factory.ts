@@ -7,8 +7,7 @@ import { ForgerType } from '../models/forger.type';
 // noinspection SuspiciousTypeOfGuard
 export class DateFactory implements ITypeFactory {
   private static factory: DateFactory = new DateFactory();
-  public static instance = () => this.factory;
-  private constructor() {}
+  public static instance = () => DateFactory.factory;
 
   public isApplicable(element: ForgerElement): boolean {
     return element.type === ForgerType.Date;

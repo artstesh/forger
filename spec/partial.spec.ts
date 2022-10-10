@@ -1,12 +1,11 @@
 import {Forger} from "../src";
 
-describe('isolated', () => {
+describe('partial#', () => {
 
     it('union literals', () => {
-        const result = Forger.create<string>({stringNumbers: false, stringSpecial: false,
-        stringUpCase: false, stringLowCase: false})!;
+        interface Test<T, Z>{zill: Z, temp: boolean, field: T}
+        const result = Forger.create<Test<string, number>>()!;
         //
-        console.log({ result });
-        expect(result).toEqual('');
+        expect(result.field?.length).toBeTruthy();
     });
 })

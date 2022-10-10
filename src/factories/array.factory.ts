@@ -6,7 +6,7 @@ import { MainFactory } from './main.factory';
 
 export class ArrayFactory implements ITypeFactory {
   private static factory: ArrayFactory = new ArrayFactory();
-  public static instance = () => this.factory;
+  public static instance = () => ArrayFactory.factory;
   private constructor() {}
 
   public isApplicable(element: ForgerElement): boolean {

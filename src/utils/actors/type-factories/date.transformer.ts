@@ -5,7 +5,7 @@ import { ForgerType } from '../../../models/forger.type';
 
 export class DateTransformer implements ITypeTransformer {
   private static factory = new DateTransformer();
-  public static instance = () => this.factory;
+  public static instance = () => DateTransformer.factory;
 
   // noinspection JSUnusedLocalSymbols
   public create = (node: ts.Node, counter: { [type: string]: number }): ForgerElement => ({ type: ForgerType.Date });

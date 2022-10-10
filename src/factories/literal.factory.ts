@@ -4,7 +4,7 @@ import { ForgerType } from '../models/forger.type';
 
 export class LiteralFactory implements ITypeFactory {
   private static factory: LiteralFactory = new LiteralFactory();
-  public static instance = () => this.factory;
+  public static instance = () => LiteralFactory.factory;
   private constructor() {}
 
   public isApplicable(element: ForgerElement): boolean {
