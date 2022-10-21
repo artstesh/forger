@@ -2,10 +2,11 @@ import {Forger} from "../src";
 
 describe('partial#', () => {
 
-    it('union literals', () => {
-        interface Test<T, Z>{zill: Z, temp: boolean, field: T}
+    it('inner generics success', () => {
+        interface Inner<C> {field: C}
+        interface Test<T, Z>{inner: Inner<T>}
         const result = Forger.create<Test<string, number>>()!;
         //
-        expect(result.field?.length).toBeTruthy();
+        expect(result).toBeTruthy();
     });
 })

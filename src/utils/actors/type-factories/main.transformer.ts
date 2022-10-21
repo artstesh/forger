@@ -10,6 +10,7 @@ import { PrimitiveTransformer } from './primitive.transformer';
 import { ForgerType } from '../../../models/forger.type';
 import { ArrayInterfaceTransformer } from './array-interface.transformer';
 import { UnionTransformer } from './union.transformer';
+import { GenerationDataModel } from "../../../models/generation-data.model";
 
 export class MainTransformer {
   public static _circularDepth = 1;
@@ -37,12 +38,12 @@ export class MainTransformer {
     PrimitiveTransformer.instance(),
   ];
 
-  public static create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
+  public static create(node: ts.Node, data: GenerationDataModel): ForgerElement {
     if (!node) return { type: ForgerType.Null };
     if (ts.isParenthesizedTypeNode(node)) node = node.type;
     if (!node) return { type: ForgerType.Null };
     return (
-      MainTransformer.factories.filter((f) => f.isApplicable(node))[0]?.create(node, counter) ?? {
+      MainTransformer.factories.filter((f) => f.isApplicable(node))[0]?.create(node, data) ?? {
         type: ForgerType.Null,
       }
     );

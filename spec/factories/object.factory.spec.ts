@@ -239,5 +239,13 @@ describe('Object factory', () => {
             //
             expect(result.tests3[0]).not.toBeNull();
         });
+
+        it('inner generics success', () => {
+            interface Inner<C> {field: C}
+            interface Test<T, Z>{inner: Inner<T>}
+            const result = Forger.create<Test<string, number>>()!;
+            //
+            expect(result).toBeTruthy();
+        });
     })
 })

@@ -5,38 +5,38 @@ import { ForgerElement } from '../../../models/forger-element.model';
 import { MainTransformer } from './main.transformer';
 import { ForgerType } from '../../../models/forger.type';
 import { GenericParsingHelper } from './helpers/generic-parsing.helper';
+import { GenerationDataModel } from "../../../models/generation-data.model";
 
 export class PrimitiveTransformer implements ITypeTransformer {
   private static factory = new PrimitiveTransformer();
   public static instance = () => PrimitiveTransformer.factory;
 
-  public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
+  public create(node: ts.Node, data: GenerationDataModel): ForgerElement {
     const refNode = node as ts.TypeReferenceNode;
     const type = Checker.Checker.getTypeFromTypeNode(refNode);
-    const genericArguments = GenericParsingHelper.tryParse(refNode, type, counter);
-    return this.generateSpoofByType(type, counter, genericArguments);
+    return this.generateSpoofByType(refNode, type, data);
   }
 
   private generateSpoofByType(
+    refNode: ts.TypeReferenceNode,
     type: ts.Type,
-    counter: { [type: string]: number },
-    generics: Map<string, ForgerElement> | null,
+    data: GenerationDataModel
   ): ForgerElement {
+    data = GenericParsingHelper.tryParse(refNode, type, data);
     const typeName = PrimitiveTransformer.getTypeName(type);
-    counter = PrimitiveTransformer.addTypeToCounter(typeName, counter);
-    if (counter[typeName] > MainTransformer.CircularDepth) return { type: ForgerType.Null };
+    data = PrimitiveTransformer.addTypeToCounter(typeName, data);
+    if (data.counter[typeName] > MainTransformer.CircularDepth) return { type: ForgerType.Null };
     const result: ForgerElement = { type: ForgerType.Object, children: [] };
     this.getMembersFromType(type).forEach((table) => {
       table?.forEach((m) => {
         if (!m.valueDeclaration) return;
         const propNode = (m.valueDeclaration as ts.PropertyDeclaration | ts.SignatureDeclaration)?.type;
-        const generic = generics?.get(propNode?.getText() ?? '-1')!;
-        if (!!generics?.has(propNode?.getText() ?? '-1')) {
+        const generic = data.genericInfo?.get(propNode?.getText() ?? '-1')!;
+        if (!!data.genericInfo?.has(propNode?.getText() ?? '-1')) {
           generic.name = m.getEscapedName()?.toString() || 'error';
           result.children?.push(generic);
         } else {
-          const propType = Checker.Checker.getTypeAtLocation(m.valueDeclaration);
-          result.children?.push(this.extractForgerElement(propType, m.name, { ...counter }, propNode));
+          result.children?.push(this.extractForgerElement(m.name, {...data, counter: { ...data.counter }}, propNode));
         }
       });
     });
@@ -59,37 +59,23 @@ export class PrimitiveTransformer implements ITypeTransformer {
     return [...members, ...result];
   }
 
-  private static isInnerObject(type: ts.Type): boolean {
-    const declaration = PrimitiveTransformer.getTypeDeclaration(type);
-    if (!declaration) return false;
-    return ts.isClassDeclaration(declaration) || ts.isInterfaceDeclaration(declaration);
-  }
-
-  private static getTypeDeclaration(type: ts.Type): ts.Declaration | undefined {
-    return type?.symbol?.valueDeclaration || (!!type?.symbol?.declarations ? type.symbol.declarations[0] : undefined);
-  }
-
   private static getTypeName(type: ts.Type): string {
     return type.symbol?.getName() || '';
   }
 
-  private static addTypeToCounter(typeName: string, counter: { [type: string]: number }): { [type: string]: number } {
-    if (typeof counter[typeName] !== 'undefined') counter[typeName] = counter[typeName] + 1;
-    else counter[typeName] = 0;
-    return counter;
+  private static addTypeToCounter(typeName: string, data: GenerationDataModel): GenerationDataModel {
+    if (typeof data.counter[typeName] !== 'undefined') data.counter[typeName] = data.counter[typeName] + 1;
+    else data.counter[typeName] = 0;
+    return data;
   }
 
   private extractForgerElement(
-    propType: ts.Type,
     propName: string,
-    counter: { [type: string]: number },
+    data: GenerationDataModel,
     propNode?: ts.TypeNode,
   ): ForgerElement {
     if (!propNode) return { name: propName, type: ForgerType.Null };
-    const value = PrimitiveTransformer.isInnerObject(propType)
-      ? this.generateSpoofByType(propType, counter, null)
-      : MainTransformer.create(propNode, counter);
-    return { name: propName, ...value };
+    return { name: propName, ...MainTransformer.create(propNode, data) };
   }
 
   public isApplicable(node: ts.Node): boolean {

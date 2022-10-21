@@ -54,7 +54,7 @@ const visitNode =
         : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
     const [typeArgument] = node.typeArguments;
     MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
-    const forgerElement = MainTransformer.create(typeArgument, {});
+    const forgerElement = MainTransformer.create(typeArgument, {counter: {}, genericInfo: null});
     return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
       settingsArg,
       circularArg,

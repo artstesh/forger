@@ -3,12 +3,13 @@ import * as ts from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
 import { Checker } from '../../checker';
+import { GenerationDataModel } from "../../../models/generation-data.model";
 
 export class EnumTransformer implements ITypeTransformer {
   private static factory = new EnumTransformer();
   public static instance = () => EnumTransformer.factory;
 
-  public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
+  public create(node: ts.Node, data: GenerationDataModel): ForgerElement {
     const type = Checker.Checker.getTypeFromTypeNode(node as ts.TypeNode);
     return { type: ForgerType.Enum, restrictions: this.getEnumValues(type) };
   }

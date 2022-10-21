@@ -4,12 +4,13 @@ import { SyntaxKind } from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
 import { MainTransformer } from './main.transformer';
+import { GenerationDataModel } from "../../../models/generation-data.model";
 
 export class UnionTransformer implements ITypeTransformer {
   private static factory = new UnionTransformer();
   public static instance = () => UnionTransformer.factory;
 
-  public create(node: ts.Node, counter: { [type: string]: number }): ForgerElement {
+  public create(node: ts.Node, data: GenerationDataModel): ForgerElement {
     const innerNodes = UnionTransformer.filterAllowedNodes(node as ts.UnionTypeNode);
     if (!innerNodes?.length) return { type: ForgerType.Null };
     const result: ForgerElement = { type: ForgerType.Union, restrictions: [] };
@@ -19,7 +20,7 @@ export class UnionTransformer implements ITypeTransformer {
           type: ForgerType.Literal,
           restrictions: [UnionTransformer.getLiteralValue(n as ts.LiteralTypeNode)],
         });
-      else result.restrictions?.push(MainTransformer.create(n, counter));
+      else result.restrictions?.push(MainTransformer.create(n, data));
     });
     return result;
   }
