@@ -1,4 +1,4 @@
-import { ForgerElement } from "./forger-element.model";
+import { ForgerElement } from './forger-element.model';
 
 export interface GenerationDataModel {
   counter: { [type: string]: number };

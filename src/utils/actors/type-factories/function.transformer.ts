@@ -4,7 +4,7 @@ import { SyntaxKind } from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
 import { MainTransformer } from './main.transformer';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class FunctionTransformer implements ITypeTransformer {
   private static factory = new FunctionTransformer();

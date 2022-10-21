@@ -10,7 +10,7 @@ import { PrimitiveTransformer } from './primitive.transformer';
 import { ForgerType } from '../../../models/forger.type';
 import { ArrayInterfaceTransformer } from './array-interface.transformer';
 import { UnionTransformer } from './union.transformer';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class MainTransformer {
   public static _circularDepth = 1;

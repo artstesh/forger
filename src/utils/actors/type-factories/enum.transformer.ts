@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
 import { Checker } from '../../checker';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class EnumTransformer implements ITypeTransformer {
   private static factory = new EnumTransformer();

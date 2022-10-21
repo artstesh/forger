@@ -5,7 +5,7 @@ import { ForgerElement } from '../../../models/forger-element.model';
 import { MainTransformer } from './main.transformer';
 import { ForgerType } from '../../../models/forger.type';
 import { GenericParsingHelper } from './helpers/generic-parsing.helper';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class PrimitiveTransformer implements ITypeTransformer {
   private static factory = new PrimitiveTransformer();
@@ -17,11 +17,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
     return this.generateSpoofByType(refNode, type, data);
   }
 
-  private generateSpoofByType(
-    refNode: ts.TypeReferenceNode,
-    type: ts.Type,
-    data: GenerationDataModel
-  ): ForgerElement {
+  private generateSpoofByType(refNode: ts.TypeReferenceNode, type: ts.Type, data: GenerationDataModel): ForgerElement {
     data = GenericParsingHelper.tryParse(refNode, type, data);
     const typeName = PrimitiveTransformer.getTypeName(type);
     data = PrimitiveTransformer.addTypeToCounter(typeName, data);
@@ -36,7 +32,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
           generic.name = m.getEscapedName()?.toString() || 'error';
           result.children?.push(generic);
         } else {
-          result.children?.push(this.extractForgerElement(m.name, {...data, counter: { ...data.counter }}, propNode));
+          result.children?.push(this.extractForgerElement(m.name, { ...data, counter: { ...data.counter } }, propNode));
         }
       });
     });
@@ -69,11 +65,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
     return data;
   }
 
-  private extractForgerElement(
-    propName: string,
-    data: GenerationDataModel,
-    propNode?: ts.TypeNode,
-  ): ForgerElement {
+  private extractForgerElement(propName: string, data: GenerationDataModel, propNode?: ts.TypeNode): ForgerElement {
     if (!propNode) return { name: propName, type: ForgerType.Null };
     return { name: propName, ...MainTransformer.create(propNode, data) };
   }

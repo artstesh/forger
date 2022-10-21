@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 import { SyntaxKind } from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class ValueTypeTransformer implements ITypeTransformer {
   private static factory = new ValueTypeTransformer();

@@ -2,7 +2,7 @@ import { ITypeTransformer } from './i-type.transformer';
 import * as ts from 'typescript';
 import { ForgerElement } from '../../../models/forger-element.model';
 import { ForgerType } from '../../../models/forger.type';
-import { GenerationDataModel } from "../../../models/generation-data.model";
+import { GenerationDataModel } from '../../../models/generation-data.model';
 
 export class DateTransformer implements ITypeTransformer {
   private static factory = new DateTransformer();
