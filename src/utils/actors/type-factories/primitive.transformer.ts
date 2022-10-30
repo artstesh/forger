@@ -31,7 +31,7 @@ export class PrimitiveTransformer implements ITypeTransformer {
         if (!!data.genericInfo?.has(propNode?.getText() ?? '-1')) {
           generic.name = m.getEscapedName()?.toString() || 'error';
           result.children?.push(generic);
-        } else {
+        } else if (!data.prohibitedProps[typeName]?.find(e => e === m.name)) {
           result.children?.push(this.extractForgerElement(m.name, { ...data, counter: { ...data.counter } }, propNode));
         }
       });

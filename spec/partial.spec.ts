@@ -3,10 +3,13 @@ import {Forger} from "../src";
 describe('partial#', () => {
 
     it('inner generics success', () => {
-        interface Inner<C> {field: C}
-        interface Test<T, Z>{inner: Inner<T>}
-        const result = Forger.create<Test<string, number>>()!;
+        interface Test {field?: string, field2?: string}
+        const result = Forger.createWith<Test>()
+          .with(s => s.field = 'art')
+          .with(s => s.field2 = Forger.create<string>({stringLength:2}))
+          .result();
         //
-        expect(result).toBeTruthy();
+        console.log(JSON.stringify(result));
+        expect(result?.field).toBe('art');
     });
 })

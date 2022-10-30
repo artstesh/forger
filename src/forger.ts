@@ -1,6 +1,7 @@
 import { SpoofSettings } from './models/spoof.settings';
 import { ForgerElement } from './models/forger-element.model';
 import { MainFactory } from './factories/main.factory';
+import { CreateWithModel } from "./models/create-with.model";
 
 /**
  * The entry point for creating fakes
@@ -19,6 +20,17 @@ export class Forger {
     }
     settings = settings ? { ...new SpoofSettings(), ...settings } : new SpoofSettings();
     return MainFactory.produce(args[0], settings) as T;
+  }
+
+  /**
+   * Creation of a forgery
+   * @param settings The {@link SpoofSettings}
+   * @param circularDepth The allowed depth of circular dependencies, by default 1
+   * @param args Technical element, do not add any arguments here!
+   * @returns object/primitive of T
+   */
+  static createWith<T>(settings: SpoofSettings = {}, circularDepth = 1, ...args: ForgerElement[]): CreateWithModel<T> {
+    return new CreateWithModel<T>(MainFactory.produce(args[0], settings) as T);
   }
 }
 
