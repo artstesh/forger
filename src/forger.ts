@@ -23,11 +23,12 @@ export class Forger {
   }
 
   /**
-   * Creation of a forgery
+   * Creation of a forgery with ability of excluding specific properties.
+   * See {@link CreateWithModel} for more details
    * @param settings The {@link SpoofSettings}
    * @param circularDepth The allowed depth of circular dependencies, by default 1
    * @param args Technical element, do not add any arguments here!
-   * @returns object/primitive of T
+   * @returns {@link CreateWithModel}
    */
   static createWith<T>(settings: SpoofSettings = {}, circularDepth = 1, ...args: ForgerElement[]): CreateWithModel<T> {
     return new CreateWithModel<T>(MainFactory.produce(args[0], settings) as T);

@@ -1,9 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import * as ts from "typescript";
-import { Checker } from "./checker";
-import { MainTransformer } from "./actors/type-factories/main.transformer";
-import { Forger } from "../forger";
+import * as ts from 'typescript';
+import { Checker } from './checker';
+import { MainTransformer } from './actors/type-factories/main.transformer';
+import { Forger } from '../forger';
+import { ProhibitedPropsExtractorService } from './prohibited-props-extractor.service';
 
 export const version = 1;
 export const name = 'forgerTransformer';
@@ -19,18 +20,18 @@ export function factory(compilerInstance: any): ts.TransformerFactory<ts.SourceF
  */
 export const transformer =
   (program: ts.Program | { getTypeChecker(): ts.TypeChecker }): ts.TransformerFactory<ts.SourceFile> =>
-  (context) => {
-    return (file) => {
-      Checker.setChecker(program.getTypeChecker());
-      return ts.visitNode(file, visitNode(context, program.getTypeChecker()));
+    (context) => {
+      return (file) => {
+        Checker.setChecker(program.getTypeChecker());
+        return ts.visitNode(file, visitNode(context, program.getTypeChecker()));
+      };
     };
-  };
 
 const isTargetExpression = (target: ts.CallExpression) =>
   ts.isPropertyAccessExpression(target.expression) &&
   ts.isIdentifier(target.expression.expression) &&
   (target.expression.name.text === 'create' ||
-  target.expression.name.text === 'createWith') &&
+    target.expression.name.text === 'createWith') &&
   target.expression.expression.text === 'Forger';
 
 /**
@@ -40,53 +41,32 @@ const isTargetExpression = (target: ts.CallExpression) =>
  */
 const visitNode =
   (context: ts.TransformationContext, checker: ts.TypeChecker): ts.Visitor =>
-  (node) => {
-    node = ts.visitEachChild(node, visitNode(context, checker), context);
+    (node) => {
+      node = ts.visitEachChild(node, visitNode(context, checker), context);
 
-    if (!ts.isCallExpression(node) || !isTargetExpression(node) || !node.typeArguments) {
-      return node;
-    }
-    const prohibitedProps: string[] = [];
-
-    if ((node.expression as ts.PropertyAccessExpression).name.text === 'createWith') {
-      let parent = node.parent;
-      while (!!parent && !ts.isExpressionStatement(parent)) {
-        const expName = ((parent as ts.CallExpression)
-          ?.expression as ts.PropertyAccessExpression)
-          ?.name?.getText();
-        if (expName === 'with'){
-          const excludedName = ((((parent as ts.CallExpression).arguments?.[0] as ts.ArrowFunction)
-            ?.body as ts.BinaryExpression)
-            ?.left as ts.PropertyAccessExpression)?.name?.escapedText;
-          if (!!excludedName)
-          prohibitedProps.push(excludedName)
-        }
-        if (expName === 'result'){
-          break;
-        }
-        parent = parent.parent;
+      if (!ts.isCallExpression(node) || !isTargetExpression(node) || !node.typeArguments) {
+        return node;
       }
-    }
 
-    const settingsArg = !!node.arguments.length
-      ? node.arguments[0]
-      : ts.factory.createRegularExpressionLiteral(JSON.stringify({}));
-    const circularArg =
-      node.arguments?.length === 2
-        ? node.arguments[1]
-        : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
-    const [typeArgument] = node.typeArguments;
-    MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
-    const forgerElement = MainTransformer.create(typeArgument, {
-      counter: {},
-      genericInfo: null,
-      prohibitedProps: {[typeArgument.getText()]: prohibitedProps}
-    });
-    return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
-      settingsArg,
-      circularArg,
-      ts.factory.createRegularExpressionLiteral(JSON.stringify(forgerElement)),
-    ]);
-  };
+      const settingsArg = !!node.arguments.length
+        ? node.arguments[0]
+        : ts.factory.createRegularExpressionLiteral(JSON.stringify({}));
+      const circularArg =
+        node.arguments?.length === 2
+          ? node.arguments[1]
+          : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
+      const [typeArgument] = node.typeArguments;
+      MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
+      const forgerElement = MainTransformer.create(typeArgument, {
+        counter: {},
+        genericInfo: null,
+        prohibitedProps: { [typeArgument.getText()]: ProhibitedPropsExtractorService.extract(node) }
+      });
+      return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
+        settingsArg,
+        circularArg,
+        ts.factory.createRegularExpressionLiteral(JSON.stringify(forgerElement))
+      ]);
+    };
 
 export default transformer;

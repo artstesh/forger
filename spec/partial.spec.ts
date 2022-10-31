@@ -1,15 +1,12 @@
-import {Forger} from "../src";
+import { Forger } from '../src';
 
 describe('partial#', () => {
 
     it('inner generics success', () => {
-        interface Test {field?: string, field2?: string}
-        const result = Forger.createWith<Test>()
-          .with(s => s.field = 'art')
-          .with(s => s.field2 = Forger.create<string>({stringLength:2}))
-          .result();
+        interface Test {prop: string, inner: Test}
+        const obj = Forger.createWith<Test>().with(t => t.prop = '').result()!;
         //
-        console.log(JSON.stringify(result));
-        expect(result?.field).toBe('art');
+        expect(obj.inner.prop).not.toEqual(obj.prop);
+        expect(obj.inner.prop).toBeDefined();
     });
 })
