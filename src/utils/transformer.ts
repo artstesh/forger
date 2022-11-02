@@ -20,18 +20,17 @@ export function factory(compilerInstance: any): ts.TransformerFactory<ts.SourceF
  */
 export const transformer =
   (program: ts.Program | { getTypeChecker(): ts.TypeChecker }): ts.TransformerFactory<ts.SourceFile> =>
-    (context) => {
-      return (file) => {
-        Checker.setChecker(program.getTypeChecker());
-        return ts.visitNode(file, visitNode(context, program.getTypeChecker()));
-      };
+  (context) => {
+    return (file) => {
+      Checker.setChecker(program.getTypeChecker());
+      return ts.visitNode(file, visitNode(context, program.getTypeChecker()));
     };
+  };
 
 const isTargetExpression = (target: ts.CallExpression) =>
   ts.isPropertyAccessExpression(target.expression) &&
   ts.isIdentifier(target.expression.expression) &&
-  (target.expression.name.text === 'create' ||
-    target.expression.name.text === 'createWith') &&
+  (target.expression.name.text === 'create' || target.expression.name.text === 'createWith') &&
   target.expression.expression.text === 'Forger';
 
 /**
@@ -41,32 +40,32 @@ const isTargetExpression = (target: ts.CallExpression) =>
  */
 const visitNode =
   (context: ts.TransformationContext, checker: ts.TypeChecker): ts.Visitor =>
-    (node) => {
-      node = ts.visitEachChild(node, visitNode(context, checker), context);
+  (node) => {
+    node = ts.visitEachChild(node, visitNode(context, checker), context);
 
-      if (!ts.isCallExpression(node) || !isTargetExpression(node) || !node.typeArguments) {
-        return node;
-      }
+    if (!ts.isCallExpression(node) || !isTargetExpression(node) || !node.typeArguments) {
+      return node;
+    }
 
-      const settingsArg = !!node.arguments.length
-        ? node.arguments[0]
-        : ts.factory.createRegularExpressionLiteral(JSON.stringify({}));
-      const circularArg =
-        node.arguments?.length === 2
-          ? node.arguments[1]
-          : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
-      const [typeArgument] = node.typeArguments;
-      MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
-      const forgerElement = MainTransformer.create(typeArgument, {
-        counter: {},
-        genericInfo: null,
-        prohibitedProps: { [typeArgument.getText()]: ProhibitedPropsExtractorService.extract(node) }
-      });
-      return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
-        settingsArg,
-        circularArg,
-        ts.factory.createRegularExpressionLiteral(JSON.stringify(forgerElement))
-      ]);
-    };
+    const settingsArg = !!node.arguments.length
+      ? node.arguments[0]
+      : ts.factory.createRegularExpressionLiteral(JSON.stringify({}));
+    const circularArg =
+      node.arguments?.length === 2
+        ? node.arguments[1]
+        : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
+    const [typeArgument] = node.typeArguments;
+    MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
+    const forgerElement = MainTransformer.create(typeArgument, {
+      counter: {},
+      genericInfo: null,
+      prohibitedProps: { [typeArgument.getText()]: ProhibitedPropsExtractorService.extract(node) },
+    });
+    return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
+      settingsArg,
+      circularArg,
+      ts.factory.createRegularExpressionLiteral(JSON.stringify(forgerElement)),
+    ]);
+  };
 
 export default transformer;

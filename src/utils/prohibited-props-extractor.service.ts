@@ -10,15 +10,13 @@ export class ProhibitedPropsExtractorService {
       let parent = node.parent;
       while (!!parent && !ts.isExpressionStatement(parent)) {
         const callExpression = parent as ts.CallExpression;
-        const expName = (callExpression
-          ?.expression as ts.PropertyAccessExpression)
-          ?.name?.getText();
+        const expName = (callExpression?.expression as ts.PropertyAccessExpression)?.name?.getText();
         if (expName === 'with') {
-          const excludedName = (((callExpression.arguments?.[0] as ts.ArrowFunction)
-            ?.body as ts.BinaryExpression)
-            ?.left as ts.PropertyAccessExpression)?.name?.escapedText;
-          if (!!excludedName)
-            prohibitedProps.push(excludedName);
+          const excludedName = (
+            ((callExpression.arguments?.[0] as ts.ArrowFunction)?.body as ts.BinaryExpression)
+              ?.left as ts.PropertyAccessExpression
+          )?.name?.escapedText;
+          if (!!excludedName) prohibitedProps.push(excludedName);
         }
         if (expName === 'result') {
           break;

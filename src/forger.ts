@@ -1,7 +1,7 @@
 import { SpoofSettings } from './models/spoof.settings';
 import { ForgerElement } from './models/forger-element.model';
 import { MainFactory } from './factories/main.factory';
-import { CreateWithModel } from "./models/create-with.model";
+import { CreateWithModel } from './models/create-with.model';
 
 /**
  * The entry point for creating fakes
