@@ -23,7 +23,7 @@ describe('String-function', () => {
             //
             const result = Forger.create<()=> string>({stringLength: length})!();
             //
-            expect(result.length).toEqual(length);
+            should().string(result).hasLength(length);
         })
         it('only numbers', () => {
             //

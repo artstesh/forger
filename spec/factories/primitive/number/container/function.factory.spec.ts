@@ -44,7 +44,7 @@ describe('Number function', () => {
             //
             const elements = Forger.create<()=> number>({numberMax, numberMin})!;
             //
-            expect(elements() >= numberMin).toBeTruthy();
+            should().number(elements()).greaterOrEqual(numberMin);
         })
     });
 })

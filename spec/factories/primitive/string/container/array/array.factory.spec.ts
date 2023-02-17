@@ -22,7 +22,7 @@ describe('String-array-array', () => {
             //
             const result = Forger.create<string[][]>({stringLength: length})![0];
             //
-            expect(result[0].length).toEqual(length);
+            should().array(result).containOnly(s => s!.length === length);
         })
         it('only numbers', () => {
             //

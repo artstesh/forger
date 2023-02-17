@@ -1,4 +1,5 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Date-tuple-array', () => {
     describe('default settings', () => {
@@ -21,7 +22,7 @@ describe('Date-tuple-array', () => {
             const bottomLimit = new Date(2000, 1, 1);
             const elements = Forger.create<[Date[]]>({dateMax: upLimit, dateMin: bottomLimit})![0];
             //
-            expect(elements!.filter(n => n.getTime() > upLimit.getTime() || n.getTime() < bottomLimit.getTime()).length).toBeFalsy();
+            should().array(elements.map(e => e.getTime())).containOnly(e => e! > bottomLimit.getTime() && e! < upLimit.getTime());
         })
     })
 });

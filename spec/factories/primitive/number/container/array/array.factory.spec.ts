@@ -30,7 +30,7 @@ describe('Array of number-arrays', () => {
             const upLimit = 3;
             const elements = Forger.create<number[][]>({numberMax: upLimit, arrayLength: 10});
             //
-            expect(elements![0].filter(n => n > upLimit).length).toBeFalsy();
+            should().array(elements![0]).containOnly(e => e! <= upLimit);
         })
 
         it('follow numberMax', () => {
@@ -39,7 +39,7 @@ describe('Array of number-arrays', () => {
             const elements = Forger.create<number[][]>({numberMax: upLimit,
                 numberMin: bottomLimit, arrayLength: 10});
             //
-            expect(elements![0].filter(n => n < bottomLimit).length).toBeFalsy();
+            should().array(elements![0]).containOnly(e => e! >= bottomLimit);
         })
 
         it('floor by default', () => {

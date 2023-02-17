@@ -1,4 +1,5 @@
 import {Forger} from "../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Date factory', () => {
     describe('create()', () => {
@@ -29,9 +30,9 @@ describe('Date factory', () => {
             it('follow limits', () => {
                 const upLimit = new Date(2000, 1, 2);
                 const bottomLimit = new Date(2000, 1, 1);
-                const elements = Forger.create<Date[]>({dateMax: upLimit, dateMin: bottomLimit, arrayLength: 10});
+                const elements = Forger.create<Date[]>({dateMax: upLimit, dateMin: bottomLimit, arrayLength: 10})!;
                 //
-                expect(elements!.filter(n => n.getTime() > upLimit.getTime() || n.getTime() < bottomLimit.getTime()).length).toBeFalsy();
+                should().array(elements.map(e => e.getTime())).containOnly(e => e! > bottomLimit.getTime() && e! < upLimit.getTime());
             })
         });
     })

@@ -6,23 +6,23 @@ describe('Tuple of number-tuple', () => {
         it('correct type', () => {
             const element = Forger.create<[[number]]>();
             //
-            should().string(typeof element![0][0]).equals('number');
+            should().number(element![0][0]).beTypeOf('number');
         })
     });
     describe('custom settings', () => {
         it('follow up limit', () => {
             const upLimit = 3;
-            const elements = Forger.create<[[number]]>({numberMax: upLimit})![0][0];
+            const element = Forger.create<[[number]]>({numberMax: upLimit})![0][0];
             //
-            expect(elements <= upLimit).toBeTruthy();
+            should().number(element).lessOrEqual(upLimit);
         })
 
         it('follow bottom limit', () => {
             const upLimit = 10;
             const bottomLimit = 8;
-            const elements = Forger.create<[[number]]>({numberMax: upLimit, numberMin: bottomLimit})![0][0];
+            const element = Forger.create<[[number]]>({numberMax: upLimit, numberMin: bottomLimit})![0][0];
             //
-            expect(elements >= bottomLimit).toBeTruthy();
+            should().number(element).greaterOrEqual(bottomLimit);
         })
 
         it('floor by default', () => {
@@ -45,7 +45,7 @@ describe('Tuple of number-tuple', () => {
             //
             const element = Forger.create<[[number]]>({numberMax, numberMin})![0][0];
             //
-            expect(element >= numberMin).toBeTruthy();
+            should().number(element).greaterOrEqual(numberMin);
         })
     });
 })

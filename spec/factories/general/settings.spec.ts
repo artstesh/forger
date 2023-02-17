@@ -28,13 +28,13 @@ describe('Settings', () => {
         it('variable', function () {
             const result = Forger.create<boolean[]>(settings);
             //
-            should().array(result).hasLength(expectedLength);
+            should().array(result).length(expectedLength);
         });
         it('func', function () {
             const func = () => settings;
             const result = Forger.create<boolean[]>(func());
             //
-            should().array(result).hasLength(expectedLength);
+            should().array(result).length(expectedLength);
         });
     })
 })
