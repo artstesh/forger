@@ -1,4 +1,5 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('String-array-tuple', () => {
     describe('arrays', () => {
@@ -6,7 +7,7 @@ describe('String-array-tuple', () => {
             it('string, correct type', () => {
                 const elements = Forger.create<[string][]>();
                 //
-                expect(typeof elements![0][0] === 'string');
+                should().string(typeof elements![0][0]).equals('string');
             })
 
             it('string, not the same', () => {

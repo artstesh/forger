@@ -1,4 +1,5 @@
 import {Forger} from "../../../src";
+import { should } from "@artstesh/it-should";
 
 describe('interface generics', () => {
 
@@ -21,7 +22,7 @@ describe('interface generics', () => {
       interface Test<T>{field: T}
       const result = Forger.create<Test<boolean>>()!;
       //
-      expect(typeof result.field === 'boolean').toBeTruthy();
+      should().string(typeof result.field).equals('boolean');
     });
   })
 
@@ -53,8 +54,8 @@ describe('interface generics', () => {
     interface Test<T, Z>{field: Z, otherField: T}
     const result = Forger.create<Test<string, number>>()!;
     //
-    expect(typeof result.field === 'number').toBeTruthy();
-    expect(typeof result.otherField === 'string').toBeTruthy();
+    should().string(typeof result.field).equals('number');
+    should().string(typeof result.otherField).equals('string');
   });
 
   it('order of parameters does not important', () => {

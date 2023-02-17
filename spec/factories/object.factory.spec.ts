@@ -1,4 +1,5 @@
 import {Forger} from "../../src/forger";
+import { should } from "@artstesh/it-should";
 
 
 describe('Object factory', () => {
@@ -206,22 +207,21 @@ describe('Object factory', () => {
         });
 
         it('correct union with null type of property', () => {
-
             interface Test { field: string | null;field2: null | string;field3?: string }
             const result = Forger.create<Test>()!;
             //
-            expect(typeof result.field === 'string');
-            expect(typeof result.field2 === 'string');
-            expect(typeof result.field3 === 'string');
+            should().string(typeof result.field).equals('string');
+            should().string(typeof result.field2).equals('string');
+            should().string(typeof result.field3).equals('string');
         });
 
         it('correct union with undefined type of property', () => {
             interface Test { field: string | undefined;field2: undefined | string;field3?: string }
             const result = Forger.create<Test>()!;
             //
-            expect(typeof result.field === 'string');
-            expect(typeof result.field2 === 'string');
-            expect(typeof result.field3 === 'string');
+            should().string(typeof result.field).equals('string');
+            should().string(typeof result.field2).equals('string');
+            should().string(typeof result.field3).equals('string');
         });
 
         it('literals are different', () => {

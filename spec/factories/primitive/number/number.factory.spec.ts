@@ -1,4 +1,5 @@
 import {Forger} from "../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Number factory', () => {
     describe('create()', () => {
@@ -6,23 +7,23 @@ describe('Number factory', () => {
             it('number, correct type', () => {
                 const element = Forger.create<number>();
                 //
-                expect(typeof element === 'number');
+                should().string(typeof element).equals('number');
             })
 
             it('correct union with null type', () => {
                 const element = Forger.create<null | number>()!;
                 const element2 = Forger.create<number | null>()!;
                 //
-                expect(typeof element === 'number');
-                expect(typeof element2 === 'number');
+                should().string(typeof element).equals('number');
+                should().string(typeof element2).equals('number');
             })
 
             it('correct union with undefined type', () => {
                 const element = Forger.create<undefined | number>()!;
                 const element2 = Forger.create<number | undefined>()!;
                 //
-                expect(typeof element === 'number');
-                expect(typeof element2 === 'number');
+                should().string(typeof element).equals('number');
+                should().string(typeof element2).equals('number');
             })
         });
 

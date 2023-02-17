@@ -1,11 +1,12 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Tuple of number-array', () => {
     describe('default settings', () => {
         it('number, correct type', () => {
             const elements = Forger.create<[number[]]>()![0];
             //
-            expect(typeof elements[0] === 'number');
+            should().string(typeof elements[0]).equals('number');
         })
 
         it('number, not the same', () => {

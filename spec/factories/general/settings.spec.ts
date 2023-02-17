@@ -1,4 +1,5 @@
 import {Forger} from "../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Settings', () => {
     const expectedLength = 6;
@@ -25,15 +26,15 @@ describe('Settings', () => {
     describe('ref object', () => {
         const settings = {arrayLength: expectedLength};
         it('variable', function () {
-            const result = Forger.create<boolean[]>(settings)?.length;
+            const result = Forger.create<boolean[]>(settings);
             //
-            expect(result).toEqual(expectedLength)
+            should().array(result).hasLength(expectedLength);
         });
         it('func', function () {
             const func = () => settings;
-            const result = Forger.create<boolean[]>(func())?.length;
+            const result = Forger.create<boolean[]>(func());
             //
-            expect(result).toEqual(expectedLength)
+            should().array(result).hasLength(expectedLength);
         });
     })
 })

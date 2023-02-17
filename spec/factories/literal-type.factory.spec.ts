@@ -1,4 +1,5 @@
 import {Forger} from "../../src";
+import { should } from "@artstesh/it-should";
 
 describe('LiteralType factory', () => {
 
@@ -6,8 +7,8 @@ describe('LiteralType factory', () => {
     interface Test {prop: {field: string}}
     const result = Forger.create<Test>()!;
     //
-    expect(typeof result.prop?.field === 'string').toBeTruthy();
-    expect(result.prop?.field).toBeTruthy();
+    should().string(result.prop?.field).defined();
+    should().string(typeof result.prop?.field).equals('string');
   });
 
   it('circular literal type', () => {

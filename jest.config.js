@@ -1,12 +1,12 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import("ts-jest/dist/types").InitialOptionsTsJest} */
 module.exports = {
-  preset: 'ts-jest',
-  globals: {
-    'ts-jest': {
-      compiler: 'ttypescript',
+  preset: "ts-jest",
+  transform: {
+    ".*.spec.ts": ["ts-jest", {
+      compiler: "ttypescript",
       astTransformers: {
-        before: ['./src/utils/transformer']
+        before: ["./src/utils/transformer"]
       }
-    }
+    }]
   }
 };

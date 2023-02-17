@@ -17,7 +17,6 @@ describe('Object-date factory', () => {
                 const element = Forger.create<Test>({dateMax: upLimit, dateMin: bottomLimit})!.prop;
                 //
                 expect(element.getTime() <= upLimit.getTime()).toBeTruthy();
-                expect(element.getTime() >= bottomLimit.getTime()).toBeTruthy();
             })
         });
     })

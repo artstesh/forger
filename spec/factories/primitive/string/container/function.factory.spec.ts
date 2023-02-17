@@ -1,18 +1,19 @@
 import {Forger} from "../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 
 describe('String-function', () => {
     it('success lambda result', () => {
         const result = Forger.create<()=> string>()!();
         //
-        expect(typeof result === 'string').toBeTruthy();
+        should().string(typeof result).equals('string');
     })
 
     describe('default settings', () => {
         it('correct type', () => {
             const element = Forger.create<()=> string>()!();
             //
-            expect(typeof element === 'string');
+            should().string(typeof element).equals('string');
         })
     });
 

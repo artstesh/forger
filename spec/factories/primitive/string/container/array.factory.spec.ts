@@ -1,11 +1,12 @@
 import {Forger} from "../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('String-array', () => {
     describe('default settings', () => {
         it('string, correct type', () => {
             const elements = Forger.create<string[]>();
             //
-            expect(typeof elements![0] === 'string');
+            should().string(typeof elements![0]).equals('string');
         })
 
         it('string, not the same', () => {

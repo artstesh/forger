@@ -1,4 +1,5 @@
 import { Forger } from '../../src/forger';
+import { should } from "@artstesh/it-should";
 
 
 describe('createWith', () => {
@@ -8,7 +9,7 @@ describe('createWith', () => {
     const expected = Forger.create<string>()!;
     const obj = Forger.createWith<Test>().with(t => t.prop = expected).result();
     //
-    expect(obj!.prop).toEqual(expected);
+    should().string(obj!.prop).equals(expected);
   })
 
   it('set a few values', () => {
@@ -19,8 +20,8 @@ describe('createWith', () => {
       .with(t => t.prop1 = expected1)
       .with(t => t.prop2 = expected2).result();
     //
-    expect(obj!.prop1).toEqual(expected1);
-    expect(obj!.prop2).toEqual(expected2);
+    should().string(obj!.prop1).equals(expected1);
+    should().string(obj!.prop2).equals(expected2);
   })
 
   it('other props generated', () => {
@@ -35,7 +36,7 @@ describe('createWith', () => {
     const obj = Forger.createWith<Test>()
       .with(t => t.prop = Forger.create<string>()!).result();
     //
-    expect(obj!.prop).toBeDefined();
+    should().string(obj!.prop).defined();
   })
 
   it('set value for root instance of type only', () => {
@@ -43,8 +44,8 @@ describe('createWith', () => {
     const expected = Forger.create<string>()!;
     const obj = Forger.createWith<Test>().with(t => t.prop = expected).result()!;
     //
-    expect(obj.inner.prop).not.toEqual(obj.prop);
-    expect(obj.inner.prop).toBeDefined();
+    should().string(obj.inner.prop).defined();
+    should().string(obj.inner.prop).not.equals(obj.prop);
   })
 
   it('not set value with the same name for other types', () => {
@@ -53,7 +54,7 @@ describe('createWith', () => {
     const expected = Forger.create<string>({}, 0)!;
     const obj = Forger.createWith<Test>().with(t => t.prop = expected).result();
     //
-    expect(obj!.inner.prop).not.toEqual(expected);
-    expect(obj!.inner.prop).toBeDefined();
+    should().string(obj?.inner.prop).defined();
+    should().string(obj?.inner.prop).not.equals(expected);
   })
 })

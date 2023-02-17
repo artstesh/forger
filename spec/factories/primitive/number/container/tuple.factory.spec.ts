@@ -1,11 +1,12 @@
 import {Forger} from "../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Tuple of numbers', () => {
     describe('default settings', () => {
         it('correct type', () => {
             const element = Forger.create<[number]>();
             //
-            expect(typeof element![0] === 'number');
+            should().string(typeof element![0]).equals('number');
         })
     });
     describe('custom settings', () => {
@@ -21,7 +22,7 @@ describe('Tuple of numbers', () => {
             const bottomLimit = 8;
             const elements = Forger.create<[number]>({numberMax: upLimit, numberMin: bottomLimit})![0];
             //
-            expect(elements >= bottomLimit).toBeTruthy();
+            should().number(elements).greaterOrEqual(bottomLimit);
         })
 
         it('floor by default', () => {

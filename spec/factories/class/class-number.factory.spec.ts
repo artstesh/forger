@@ -1,4 +1,5 @@
 import {Forger} from "../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Object-number factory', () => {
     describe('single', () => {
@@ -7,7 +8,7 @@ describe('Object-number factory', () => {
             it('number, correct type', () => {
                 const element = Forger.create<Test>();
                 //
-                expect(typeof element!.prop === 'number');
+                should().string(typeof element!.prop).equals('number');
             })
         });
         describe('custom settings', () => {
@@ -15,7 +16,7 @@ describe('Object-number factory', () => {
                 const upLimit = 3;
                 const element = Forger.create<Test>({numberMax: upLimit})!.prop;
                 //
-                expect(element <= upLimit).toBeTruthy();
+                should().number(element).lessOrEqual(upLimit);
             })
 
             it('follow bottom limit', () => {
@@ -23,21 +24,21 @@ describe('Object-number factory', () => {
                 const bottomLimit = 8;
                 const element = Forger.create<Test>({numberMax: upLimit, numberMin: bottomLimit})!.prop;
                 //
-                expect(element >= bottomLimit).toBeTruthy();
+                should().number(element).greaterOrEqual(bottomLimit);
             })
 
             it('floor by default', () => {
                 //
                 const elements = Forger.create<Test>()!.prop;
                 //
-                expect(elements % 1).toBe(0);
+                should().number(elements % 1).equals(0);
             })
 
             it('float success', () => {
                 //
                 const elements = Forger.create<Test>({numberFloat: true})!.prop;
                 //
-                expect(elements % 1).not.toBe(0);
+                should().number(elements % 1).not.equals(0);
             })
 
             it('wrong min&max is fixed', () => {
@@ -46,7 +47,7 @@ describe('Object-number factory', () => {
                 //
                 const elements = Forger.create<Test>({numberMax, numberMin})!.prop;
                 //
-                expect(elements >= numberMin).toBeTruthy();
+                should().number(elements).greaterOrEqual(numberMin);
             })
         });
     })
@@ -56,7 +57,7 @@ describe('Object-number factory', () => {
             it('number, correct type', () => {
                 const elements = Forger.create<Test>();
                 //
-                expect(typeof elements!.prop[0] === 'number');
+                should().string(typeof elements!.prop[0]).equals('number');
             })
 
             it('number, not the same', () => {
@@ -104,7 +105,7 @@ describe('Object-number factory', () => {
                 //
                 const elements = Forger.create<Test>({numberMax, numberMin})!.prop;
                 //
-                expect(elements[0] >= numberMin).toBeTruthy();
+                should().number(elements[0]).greaterOrEqual(numberMin);
             })
         })
     });
@@ -114,7 +115,7 @@ describe('Object-number factory', () => {
             it('number, correct type', () => {
                 const elements = Forger.create<Test>()!.prop;
                 //
-                expect(typeof elements[0][0] === 'number');
+                should().string(typeof elements[0][0]).equals('number');
             })
 
             it('number, not the same', () => {
@@ -161,7 +162,7 @@ describe('Object-number factory', () => {
                 //
                 const elements = Forger.create<Test>({numberMax, numberMin})!.prop[0];
                 //
-                expect(elements[0] >= numberMin).toBeTruthy();
+                should().number(elements[0]).greaterOrEqual(numberMin);
             })
         })
     });
@@ -171,7 +172,7 @@ describe('Object-number factory', () => {
             it('number, correct type', () => {
                 const element = Forger.create<Test>();
                 //
-                expect(typeof element!.prop[0] === 'number');
+                should().string(typeof element!.prop[0]).equals('number');
             })
         });
         describe('custom settings', () => {
@@ -187,7 +188,7 @@ describe('Object-number factory', () => {
                 const bottomLimit = 8;
                 const element = Forger.create<Test>({numberMax: upLimit, numberMin: bottomLimit})!.prop;
                 //
-                expect(element[0] >= bottomLimit).toBeTruthy();
+                should().number(element[0]).greaterOrEqual(bottomLimit);
             })
 
             it('floor by default', () => {
@@ -210,7 +211,7 @@ describe('Object-number factory', () => {
                 //
                 const elements = Forger.create<Test>({numberMax, numberMin})!.prop;
                 //
-                expect(elements[0] >= numberMin).toBeTruthy();
+                should().number(elements[0]).greaterOrEqual(numberMin);
             })
         });
     })

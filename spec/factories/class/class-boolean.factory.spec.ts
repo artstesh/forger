@@ -1,4 +1,5 @@
 import {Forger} from "../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Object-boolean factory', () => {
     describe('single', () => {
@@ -9,7 +10,7 @@ describe('Object-boolean factory', () => {
         it('correct type', () => {
             const element = Forger.create<Test>();
             //
-            expect(typeof element!.prop === 'boolean');
+            should().string(typeof element!.prop).equals('boolean');
         })
     })
     describe('array', () => {
@@ -20,7 +21,7 @@ describe('Object-boolean factory', () => {
         it('correct type', () => {
             const elements = Forger.create<Test>();
             //
-            expect(typeof elements!.prop[0] === 'boolean');
+            should().string(typeof elements!.prop[0]).equals('boolean');
         })
 
         it('not the same', () => {
@@ -41,7 +42,7 @@ describe('Object-boolean factory', () => {
         it('correct type', () => {
             const elements = Forger.create<Test>()!.prop;
             //
-            expect(typeof elements[0][0] === 'boolean');
+            should().string(typeof elements[0][0]).equals('boolean');
         })
 
         it('not the same', () => {
@@ -59,7 +60,7 @@ describe('Object-boolean factory', () => {
         it('correct type', () => {
             const element = Forger.create<Test>();
             //
-            expect(typeof element!.prop[0] === 'boolean');
+            should().string(typeof element!.prop[0]).equals('boolean');
         })
 
         it('not the same', () => {

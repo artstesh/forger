@@ -1,10 +1,11 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Function in function number', () => {
     it('success lambda result', () => {
         const result = Forger.create<()=> ()=> number>()!()();
         //
-        expect(typeof result === 'number').toBeTruthy();
+        should().string(typeof result).equals('number');
     })
     describe('custom settings', () => {
         it('follow up limit', () => {

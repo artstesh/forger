@@ -1,10 +1,11 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Boolean-array-tuple', () => {
     it('correct type', () => {
         const element = Forger.create<[boolean][]>();
         //
-        expect(typeof element![0][0] === 'boolean');
+        should().string(typeof element![0][0]).equals('boolean');
     })
 
     it('not the same', () => {

@@ -1,11 +1,12 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Tuple-number from function', () => {
     describe('default settings', () => {
         it('correct type', () => {
             const element = Forger.create<() => [number]>()!();
             //
-            expect(typeof element[0] === 'number');
+            should().string(typeof element[0]).equals('number');
         })
     });
     describe('custom settings', () => {
@@ -13,7 +14,7 @@ describe('Tuple-number from function', () => {
             const upLimit = 3;
             const elements = Forger.create<() => [number]>({numberMax: upLimit})!()[0];
             //
-            expect(elements <= upLimit).toBeTruthy();
+            should().number(elements).lessOrEqual(upLimit);
         })
 
         it('follow bottom limit', () => {
@@ -21,21 +22,21 @@ describe('Tuple-number from function', () => {
             const bottomLimit = 8;
             const elements = Forger.create<() => [number]>({numberMax: upLimit, numberMin: bottomLimit})!()[0];
             //
-            expect(elements >= bottomLimit).toBeTruthy();
+            should().number(elements).greaterOrEqual(bottomLimit);
         })
 
         it('floor by default', () => {
             //
             const elements = Forger.create<() => [number]>()!()[0];
             //
-            expect(elements % 1).toBe(0);
+            should().number(elements % 1).equals(0);
         })
 
         it('float success', () => {
             //
             const elements = Forger.create<() => [number]>({numberFloat: true})!()[0];
             //
-            expect(elements % 1).not.toBe(0);
+            should().number(elements % 1).not.equals(0);
         })
 
         it('wrong min&max is fixed', () => {

@@ -1,4 +1,5 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 
 describe('Array of number-arrays', () => {
@@ -6,7 +7,7 @@ describe('Array of number-arrays', () => {
         it('number, correct type', () => {
             const elements = Forger.create<number[][]>();
             //
-            expect(typeof elements![0][0] === 'number');
+            should().string(typeof elements![0][0]).equals('number');
         })
 
         it('number, not the same', () => {

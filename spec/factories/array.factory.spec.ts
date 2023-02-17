@@ -1,4 +1,5 @@
 import {Forger} from "../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Array factory general', () => {
 
@@ -7,7 +8,7 @@ describe('Array factory general', () => {
             const result = Forger.create<Array<string>>()!;
             //
             expect(result).not.toBeUndefined();
-            expect(typeof result[0] == 'string').toBeTruthy();
+            should().string(typeof result[0]).equals('string');
         })
     });
 })
