@@ -1,15 +1,13 @@
-export default function modifyConfig(cfg: any) {
+function modifyConfig(cfg: any) {
   const angularWebpackPlugin = cfg.plugins.find((plugin: any) => plugin?.constructor?.name === 'AngularWebpackPlugin');
 
   if (!angularWebpackPlugin)
-    throw new Error('Could not inject the typescript transformers, because AngularWebpackPlugin not found.');
+    throw new Error('AngularWebpackPlugin not found.');
 
   addTransformers(angularWebpackPlugin);
 
   return cfg;
 }
-
-export const AngularCustomTransformers = { modifyConfig };
 
 modifyConfig.config = modifyConfig;
 
@@ -33,4 +31,4 @@ function addTransformers(plugin: any) {
     return originalCreateFileEmitter.apply(plugin, [builderProgram, transformers, ...rest]);
   };
 }
-module.exports = (config: any) => AngularCustomTransformers.modifyConfig(config);
+module.exports = (config: any) => modifyConfig(config);
