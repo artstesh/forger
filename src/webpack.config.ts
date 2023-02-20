@@ -1,8 +1,7 @@
 function modifyConfig(cfg: any) {
   const angularWebpackPlugin = cfg.plugins.find((plugin: any) => plugin?.constructor?.name === 'AngularWebpackPlugin');
 
-  if (!angularWebpackPlugin)
-    throw new Error('AngularWebpackPlugin not found.');
+  if (!angularWebpackPlugin) throw new Error('AngularWebpackPlugin not found.');
 
   addTransformers(angularWebpackPlugin);
 
