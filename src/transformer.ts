@@ -9,9 +9,7 @@ export default function modifyConfig(cfg: any) {
   return cfg;
 }
 
-export const AngularCustomTransformers = {
-  modifyConfig,
-};
+export const AngularCustomTransformers = { modifyConfig };
 
 modifyConfig.config = modifyConfig;
 
@@ -35,3 +33,4 @@ function addTransformers(plugin: any) {
     return originalCreateFileEmitter.apply(plugin, [builderProgram, transformers, ...rest]);
   };
 }
+module.exports = (config: any) => AngularCustomTransformers.modifyConfig(config);
