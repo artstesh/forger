@@ -28,7 +28,7 @@ describe('createWith', () => {
     interface Test {prop: string, other: number}
     const obj = Forger.createWith<Test>().with(t => t.prop = '').result();
     //
-    expect(obj!.other).toBeTruthy();
+    should().number(obj!.other).positive();
   })
 
   it('allow generate with create inside', () => {
@@ -36,7 +36,7 @@ describe('createWith', () => {
     const obj = Forger.createWith<Test>()
       .with(t => t.prop = Forger.create<string>()!).result();
     //
-    should().string(obj!.prop).defined();
+    should().true(obj!.prop);
   })
 
   it('set value for root instance of type only', () => {
@@ -44,7 +44,7 @@ describe('createWith', () => {
     const expected = Forger.create<string>()!;
     const obj = Forger.createWith<Test>().with(t => t.prop = expected).result()!;
     //
-    should().string(obj.inner.prop).defined();
+    should().true(obj.inner.prop);
     should().string(obj.inner.prop).not.equals(obj.prop);
   })
 

@@ -1,4 +1,5 @@
 import {Forger} from "../../../src";
+import { should } from "@artstesh/it-should";
 
 describe('interface inheritance', () => {
 
@@ -7,7 +8,7 @@ describe('interface inheritance', () => {
         interface Child extends Parent {childProp: number}
         const result = Forger.create<Child>()!;
         //
-        expect(result.parentProp).toBeTruthy();
+        should().number(result.parentProp).positive();
     });
 
     it('generate grandparent props', () => {
@@ -16,7 +17,7 @@ describe('interface inheritance', () => {
         interface Child extends Parent {childProp: number}
         const result = Forger.create<Child>()!;
         //
-        expect(result.grandParentProp).toBeTruthy();
+        should().number(result.grandParentProp).positive();
     });
 
     it('generate field\'s parent props', () => {
@@ -25,7 +26,7 @@ describe('interface inheritance', () => {
         interface Test {field: Child}
         const result = Forger.create<Test>()!;
         //
-        expect(result.field.parentProp).toBeTruthy();
+        should().number(result.field.parentProp).positive();
     });
 
     it('generate field\'s grandparent props', () => {
@@ -35,6 +36,6 @@ describe('interface inheritance', () => {
         interface Test {field: Child}
         const result = Forger.create<Test>()!;
         //
-        expect(result.field.grandParentProp).toBeTruthy();
+        should().number(result.field.grandParentProp).positive();
     });
 })

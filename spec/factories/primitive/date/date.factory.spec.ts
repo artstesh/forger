@@ -7,23 +7,23 @@ describe('Date factory', () => {
             it('correct type', () => {
                 const element = Forger.create<Date>();
                 //
-                expect(element instanceof Date);
+                should().date(element).beTypeOf(Date);
             })
 
             it('correct union with null type', () => {
                 const element = Forger.create<null | Date>()!;
                 const element2 = Forger.create<Date | null>()!;
                 //
-                expect(element instanceof Date);
-                expect(element2 instanceof Date);
+                should().date(element).beTypeOf(Date);
+                should().date(element2).beTypeOf(Date);
             })
 
             it('correct union with undefined type', () => {
                 const element = Forger.create<undefined | Date>()!;
                 const element2 = Forger.create<Date | undefined>()!;
                 //
-                expect(element instanceof Date);
-                expect(element2 instanceof Date);
+                should().date(element).beTypeOf(Date);
+                should().date(element2).beTypeOf(Date);
             })
         });
         describe('custom settings', () => {

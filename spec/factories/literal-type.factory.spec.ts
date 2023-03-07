@@ -15,7 +15,7 @@ describe('LiteralType factory', () => {
     interface Test {prop: {field: Test}}
     const result = Forger.create<Test>()!;
     //
-    expect(result.prop?.field?.prop).toBeTruthy();
+    should().true(result.prop?.field?.prop);
   });
 
   it('reference inner type', () => {
@@ -23,6 +23,6 @@ describe('LiteralType factory', () => {
     interface Test {prop: {field: InnerTest}}
     const result = Forger.create<Test>()!;
     //
-    expect(result.prop?.field?.innerProp).toBeTruthy();
+    should().true(result.prop?.field?.innerProp);
   });
 })

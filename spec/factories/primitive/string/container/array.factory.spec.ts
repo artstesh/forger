@@ -10,9 +10,9 @@ describe('String-array', () => {
         })
 
         it('string, not the same', () => {
-            const elements = new Set(Forger.create<string[]>());
+            const elements = Forger.create<string[]>();
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
     });
 

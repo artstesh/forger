@@ -32,7 +32,7 @@ describe('Number factory', () => {
                 const upLimit = 3;
                 const elements = Forger.create<number>({numberMax: upLimit, arrayLength: 10});
                 //
-                expect(elements! <= upLimit).toBeTruthy();
+                should().number(elements).lessOrEqual(upLimit);
             })
 
             it('follow bottom limit', () => {
@@ -40,7 +40,7 @@ describe('Number factory', () => {
                 const bottomLimit = 8;
                 const elements = Forger.create<number>({numberMax: upLimit, numberMin: bottomLimit});
                 //
-                expect(elements! >= bottomLimit).toBeTruthy();
+                should().number(elements).greaterOrEqual(bottomLimit);
             })
 
             it('floor by default', () => {
@@ -61,9 +61,9 @@ describe('Number factory', () => {
                 const numberMin = 1000;
                 const numberMax = 100;
                 //
-                const elements = Forger.create<number>({numberMax, numberMin});
+                const element = Forger.create<number>({numberMax, numberMin});
                 //
-                expect(elements! >= numberMin).toBeTruthy();
+                should().number(element).greaterOrEqual(numberMin);
             })
         });
     })

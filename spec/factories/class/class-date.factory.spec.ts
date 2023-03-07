@@ -1,4 +1,5 @@
 import {Forger} from "../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Object-date factory', () => {
     describe('single', () => {
@@ -7,7 +8,7 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const element = Forger.create<Test>();
                 //
-                expect(element!.prop instanceof Date);
+                should().date(element!.prop).beTypeOf(Date);
             })
         });
         describe('custom settings', () => {
@@ -26,13 +27,13 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const elements = Forger.create<Test>();
                 //
-                expect(elements!.prop[0] instanceof Date);
+                should().date(elements!.prop[0]).beTypeOf(Date);
             })
 
             it('not the same', () => {
-                const elements = new Set(Forger.create<Test>()!.prop);
+                const elements = Forger.create<Test>()!.prop;
                 //
-                expect(elements.size > 1).toBeTruthy();
+                should().array(elements).uniq();
             })
         });
 
@@ -42,7 +43,7 @@ describe('Object-date factory', () => {
                 const bottomLimit = new Date(2000, 1, 1);
                 const elements = Forger.create<Test>({dateMax: upLimit, dateMin: bottomLimit})!.prop;
                 //
-                expect(elements.filter(n => n.getTime() > upLimit.getTime() || n.getTime() < bottomLimit.getTime()).length).toBeFalsy();
+                elements.forEach(d => should().date(d).inRange(bottomLimit, upLimit));
             })
         })
     });
@@ -52,13 +53,13 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const elements = Forger.create<Test>()!.prop;
                 //
-                expect(elements[0][0] instanceof Date);
+                should().date(elements[0][0]).beTypeOf(Date);
             })
 
             it('not the same', () => {
-                const elements = new Set(Forger.create<Test>()!.prop[0]);
+                const elements = Forger.create<Test>()!.prop[0];
                 //
-                expect(elements.size > 1).toBeTruthy();
+                should().array(elements).uniq();
             })
         });
 
@@ -68,7 +69,7 @@ describe('Object-date factory', () => {
                 const bottomLimit = new Date(2000, 1, 1);
                 const elements =Forger.create<Test>({dateMax: upLimit, dateMin: bottomLimit})!.prop[0];
                 //
-                expect(elements.filter(n => n.getTime() > upLimit.getTime() || n.getTime() < bottomLimit.getTime()).length).toBeFalsy();
+                elements.forEach(d => should().date(d).inRange(bottomLimit, upLimit));
             })
         })
     });
@@ -77,7 +78,7 @@ describe('Object-date factory', () => {
         it('success lambda result', () => {
             const result = Forger.create<()=> Date>()!();
             //
-            expect(result instanceof Date);
+            should().date(result).beTypeOf(Date);
         })
     })
 })

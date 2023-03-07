@@ -12,9 +12,7 @@ describe('String-tuple', () => {
             it('not the same', () => {
                 const elements = Forger.create<[string][]>({arrayLength: 10});
                 //
-                const set = new Set(elements!.map(e => e[0]));
-                //
-                expect(set.size > 1).toBeTruthy();
+                should().array(elements).uniq(e => e![0]);
             })
         });
         describe('custom settings', () => {
@@ -23,7 +21,7 @@ describe('String-tuple', () => {
                 //
                 const result = Forger.create<[string]>({stringLength: length});
                 //
-                expect(result![0].length).toEqual(length);
+                should().array(result).containOnly(s => s!.length === length);
             })
             it('only numbers', () => {
                 //

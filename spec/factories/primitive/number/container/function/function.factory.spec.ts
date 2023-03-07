@@ -12,7 +12,7 @@ describe('Function in function number', () => {
             const upLimit = 3;
             const elements = Forger.create<()=> ()=> number>({numberMax: upLimit});
             //
-            expect(elements!()() <= upLimit).toBeTruthy();
+            should().number(elements!()()).lessOrEqual(upLimit);
         })
 
         it('follow bottom limit', () => {
@@ -20,7 +20,7 @@ describe('Function in function number', () => {
             const bottomLimit = 8;
             const elements = Forger.create<()=> ()=> number>({numberMax: upLimit, numberMin: bottomLimit});
             //
-            expect(elements!()() >= bottomLimit).toBeTruthy();
+            should().number(elements!()()).greaterOrEqual(bottomLimit);
         })
 
         it('floor by default', () => {
@@ -43,7 +43,7 @@ describe('Function in function number', () => {
             //
             const elements = Forger.create<()=> ()=> number>({numberMax, numberMin});
             //
-            expect(elements!()() >= numberMin).toBeTruthy();
+            should().number(elements!()()).greaterOrEqual(numberMin);
         })
     });
 })

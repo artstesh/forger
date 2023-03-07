@@ -9,8 +9,8 @@ describe('Boolean-array-array factory', () => {
     })
 
     it('not the same', () => {
-        const elements = new Set(Forger.create<boolean[][]>({arrayLength: 10})![0]);
+        const elements = Forger.create<boolean[][]>({arrayLength: 10})![0];
         //
-        expect(elements.size > 1).toBeTruthy();
+        should().true(new Set(elements).size > 1);
     })
 });

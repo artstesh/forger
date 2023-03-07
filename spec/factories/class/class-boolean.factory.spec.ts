@@ -28,10 +28,9 @@ describe('Object-boolean factory', () => {
             class Test {
                 prop!: boolean[]
             }
-
-            const elements = new Set(Forger.create<Test>({arrayLength: 10})!.prop);
+            const elements = Forger.create<Test>({arrayLength: 10})!.prop;
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().true(new Set(elements).size > 1);
         })
     })
     describe('arrays of arrays', () => {
@@ -46,9 +45,9 @@ describe('Object-boolean factory', () => {
         })
 
         it('not the same', () => {
-            const elements = new Set(Forger.create<Test>({arrayLength: 10})!.prop[0]);
+            const elements = Forger.create<Test>({arrayLength: 10})!.prop[0];
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().true(new Set(elements).size > 1);
         })
     });
 
@@ -66,9 +65,7 @@ describe('Object-boolean factory', () => {
         it('not the same', () => {
             const elements = Forger.create<Test[]>({arrayLength: 20})!.map(e => e.prop[0]);
             //
-            const set = new Set(elements);
-            //
-            expect(set.size > 1).toBeTruthy();
+            should().true(new Set(elements).size > 1);
         })
     })
 })

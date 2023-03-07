@@ -1,14 +1,15 @@
 import {Forger} from "../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 enum UnderTestEnum {
-    One, Two, Three
+    One = 1, Two, Three
 }
 
 describe('Enum factory', () => {
     it('success', () => {
         const result = Forger.create<UnderTestEnum>();
         //
-        expect(result).not.toBeUndefined();
+        should().true(result);
         expect(Object.values(UnderTestEnum).includes(result!)).toBeTruthy();
     })
 
@@ -21,21 +22,17 @@ describe('Enum factory', () => {
 
     it('Not the same in array', () => {
         const length = 10;
-        const enums = Forger.create<UnderTestEnum[]>({arrayLength: length});
+        const elements = new Set(Forger.create<UnderTestEnum[]>({arrayLength: length}));
         //
-        const set = new Set(enums);
-        //
-        expect(set.size > 1).toBeTruthy();
+        should().true(elements.size > 1);
     })
 
     it('Not the same in objects', () => {
         interface Test {field: UnderTestEnum}
         const length = 10;
-        const objs = Forger.create<Test[]>({arrayLength: length})!;
+        const elements = new Set(Forger.create<Test[]>({arrayLength: length})!);
         //
-        const set = new Set(objs.map(e => e.field));
-        //
-        expect(set.size > 1).toBeTruthy();
+        should().true(elements.size > 1);
     })
 
     it('Not the same in array of objects', () => {
@@ -45,15 +42,13 @@ describe('Enum factory', () => {
         //
         const set = new Set(objs.map(e => e!.field));
         //
-        expect(set.size > 1).toBeTruthy();
+        should().true(set.size > 1);
     })
 
     it('Bulk creation, not the same', () => {
-        const enums = Array.from({length:10}).map(() => Forger.create<UnderTestEnum>());
+        const elements = Array.from({length:10}).map(() => Forger.create<UnderTestEnum>());
         //
-        const set = new Set(enums);
-        //
-        expect(set.size > 1).toBeTruthy();
+        should().true(new Set(elements).size > 1);
     })
 
     it('correct union with null type', () => {

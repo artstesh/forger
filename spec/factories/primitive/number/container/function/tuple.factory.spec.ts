@@ -45,7 +45,7 @@ describe('Tuple-number from function', () => {
             //
             const element = Forger.create<() => [number]>({numberMax, numberMin})!()[0];
             //
-            expect(element >= numberMin).toBeTruthy();
+            should().number(element).greaterOrEqual(numberMin);
         })
     });
 })

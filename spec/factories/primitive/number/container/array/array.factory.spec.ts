@@ -11,9 +11,9 @@ describe('Array of number-arrays', () => {
         })
 
         it('number, not the same', () => {
-            const elements = new Set(Forger.create<number[][]>());
+            const elements = Forger.create<number[][]>();
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
 
         it('floor by default', () => {
@@ -62,7 +62,7 @@ describe('Array of number-arrays', () => {
             //
             const elements = Forger.create<number[][]>({numberMax, numberMin});
             //
-            expect(elements![0][0] >= numberMin).toBeTruthy();
+            should().number(elements![0][0]).greaterOrEqual(numberMin);
         })
     })
 });

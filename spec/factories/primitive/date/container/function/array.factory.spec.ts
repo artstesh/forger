@@ -6,7 +6,7 @@ describe('Date-function-array', () => {
         it('correct type', () => {
             const date = Forger.create<() => Date[]>()!();
             //
-            expect(date[0] instanceof Date);
+            should().date(date[0]).beTypeOf(Date);
         })
     });
 
@@ -16,7 +16,7 @@ describe('Date-function-array', () => {
             const bottomLimit = new Date(2000, 1, 1);
             const date = Forger.create<() => Date[]>({dateMax: upLimit, dateMin: bottomLimit})!()[0];
             //
-            should().number(date!.getTime()).inRange(bottomLimit.getTime(),upLimit.getTime());
+            should().date(date).inRange(bottomLimit,upLimit);
         })
     })
 });

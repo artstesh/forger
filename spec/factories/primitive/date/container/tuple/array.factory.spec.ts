@@ -6,13 +6,13 @@ describe('Date-tuple-array', () => {
         it('correct type', () => {
             const elements = Forger.create<[Date[]]>()![0];
             //
-            expect(elements![0] instanceof Date);
+            should().date(elements![0]).beTypeOf(Date);
         })
 
         it('not the same', () => {
-            const elements = new Set(Forger.create<Date[]>());
+            const elements = Forger.create<Date[]>();
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
     });
 

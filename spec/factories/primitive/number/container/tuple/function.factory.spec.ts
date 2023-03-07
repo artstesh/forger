@@ -10,17 +10,17 @@ describe('Tuple of number-function', () => {
     describe('custom settings', () => {
         it('follow up limit', () => {
             const upLimit = 3;
-            const elements = Forger.create<[()=> number]>({numberMax: upLimit})![0];
+            const elements = Forger.create<[()=> number]>({numberMax: upLimit})!;
             //
-            expect(elements()<= upLimit).toBeTruthy();
+            should().array(elements).containOnly(e => e!() <= upLimit);
         })
 
         it('follow bottom limit', () => {
             const upLimit = 10;
             const bottomLimit = 8;
-            const elements = Forger.create<[()=> number]>({numberMax: upLimit, numberMin: bottomLimit})![0];
+            const elements = Forger.create<[()=> number]>({numberMax: upLimit, numberMin: bottomLimit})!;
             //
-            expect(elements()>= bottomLimit).toBeTruthy();
+            should().array(elements).containOnly(e => e!() >= bottomLimit);
         })
 
         it('floor by default', () => {
@@ -41,9 +41,9 @@ describe('Tuple of number-function', () => {
             const numberMin = 1000;
             const numberMax = 100;
             //
-            const elements = Forger.create<[()=> number]>({numberMax, numberMin})![0];
+            const elements = Forger.create<[()=> number]>({numberMax, numberMin})!;
             //
-            expect(elements() >= numberMin).toBeTruthy();
+            should().array(elements).containOnly(e => e!() >= numberMin);
         })
     });
 })

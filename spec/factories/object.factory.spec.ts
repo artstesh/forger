@@ -135,7 +135,7 @@ describe('Object factory', () => {
                 interface Test {prop: number[]}
                 const obj = Forger.create<Test[]>();
                 //
-                expect(!!obj![0].prop.length).toBeTruthy();
+                should().true(!!obj![0].prop.length);
             })
 
             it('inner class is defined', () => {
@@ -245,7 +245,7 @@ describe('Object factory', () => {
             interface Test<T, Z>{inner: Inner<T>}
             const result = Forger.create<Test<string, number>>()!;
             //
-            expect(result).toBeTruthy();
+            should().true(result);
         });
     })
 })

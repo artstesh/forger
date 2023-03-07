@@ -10,9 +10,9 @@ describe('Function, number-array', () => {
         })
 
         it('number, not the same', () => {
-            const elements = new Set(Forger.create<() => number[]>()!());
+            const elements = Forger.create<() => number[]>()!();
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
 
         it('floor by default', () => {
@@ -29,7 +29,7 @@ describe('Function, number-array', () => {
             const upLimit = 3;
             const elements = Forger.create<() => number[]>({numberMax: upLimit, arrayLength: 10})!();
             //
-            expect(elements.filter(n => n > upLimit).length).toBeFalsy();
+            should().array(elements).containOnly(e => e! <= upLimit);
         })
 
         it('follow numberMax', () => {
@@ -38,7 +38,7 @@ describe('Function, number-array', () => {
             const elements = Forger.create<() => number[]>({numberMax: upLimit,
                 numberMin: bottomLimit, arrayLength: 10})!();
             //
-            expect(elements.filter(n => n < bottomLimit).length).toBeFalsy();
+            should().array(elements).containOnly(e => e! >= bottomLimit);
         })
 
         it('float success', () => {
@@ -54,7 +54,7 @@ describe('Function, number-array', () => {
             //
             const elements = Forger.create<() => number[]>({numberMax, numberMin})!();
             //
-            expect(elements[0] >= numberMin).toBeTruthy();
+            should().number(elements[0]).greaterOrEqual(numberMin);
         })
     })
 });

@@ -10,9 +10,9 @@ describe('Tuple of number-array', () => {
         })
 
         it('number, not the same', () => {
-            const elements = new Set(Forger.create<[number[]]>()![0]);
+            const elements = Forger.create<[number[]]>()![0];
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
 
         it('floor by default', () => {
@@ -29,16 +29,16 @@ describe('Tuple of number-array', () => {
             const upLimit = 3;
             const elements = Forger.create<[number[]]>({numberMax: upLimit, arrayLength: 10})![0];
             //
-            expect(elements.filter(n => n > upLimit).length).toBeFalsy();
+            should().array(elements).containOnly(e => e! <= upLimit);
         })
 
-        it('follow numberMax', () => {
+        it('follow numberMin', () => {
             const upLimit = 10;
             const bottomLimit = 8;
             const elements = Forger.create<[number[]]>({numberMax: upLimit,
                 numberMin: bottomLimit, arrayLength: 10})![0];
             //
-            expect(elements.filter(n => n < bottomLimit).length).toBeFalsy();
+            should().array(elements).containOnly(e => e! >= bottomLimit);
         })
 
         it('float success', () => {
@@ -54,7 +54,7 @@ describe('Tuple of number-array', () => {
             //
             const elements = Forger.create<[number[]]>({numberMax, numberMin})![0];
             //
-            expect(elements[0] >= numberMin).toBeTruthy();
+            should().array(elements).containOnly(e => e! >= numberMin);
         })
     })
 });

@@ -1,4 +1,5 @@
 import { Forger } from "../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe("String factory", () => {
   describe("create()", () => {
@@ -6,31 +7,29 @@ describe("String factory", () => {
       it("correct type", () => {
         const element = Forger.create<string>();
         //
-        expect(typeof element === "string");
+        should().string(typeof element).equals('string');
       });
 
       it("correct union with null type", () => {
         const element = Forger.create<null | string>()!;
         const element2 = Forger.create<string | null>()!;
         //
-        expect(typeof element === "string");
-        expect(typeof element2 === "string");
+        should().string(typeof element).equals('string');
+        should().string(typeof element2).equals('string');
       });
 
       it("correct union with undefined type", () => {
         const element = Forger.create<undefined | string>()!;
         const element2 = Forger.create<string | undefined>()!;
         //
-        expect(typeof element === "string");
-        expect(typeof element2 === "string");
+        should().string(typeof element).equals('string');
+        should().string(typeof element2).equals('string');
       });
 
       it("not the same", () => {
         const elements = Forger.create<string[]>();
         //
-        const set = new Set(elements);
-        //
-        expect(set.size > 1).toBeTruthy();
+        should().array(elements).uniq();
       });
     });
 
@@ -40,7 +39,7 @@ describe("String factory", () => {
         //
         const result = Forger.create<string>({ stringLength: length });
         //
-        expect(result!.length).toEqual(length);
+        should().string(result).hasLength(length);
       });
       it("only numbers", () => {
         //
@@ -76,7 +75,7 @@ describe("String factory", () => {
           stringUpCase: false, stringLowCase: false
         })!;
         //
-        expect(result).toEqual('');
+        should().string(result).empty();
       });
     });
   });

@@ -1,17 +1,18 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 describe('Date-array-array', () => {
     describe('default settings', () => {
         it('correct type', () => {
             const elements = Forger.create<Date[][]>();
             //
-            expect(elements![0][0] instanceof Date);
+            should().date(elements![0][0]).beTypeOf(Date);
         })
 
         it('not the same', () => {
-            const elements = new Set(Forger.create<Date[][]>()![0]);
+            const elements = Forger.create<Date[][]>()![0];
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
     });
 
@@ -21,7 +22,7 @@ describe('Date-array-array', () => {
             const bottomLimit = new Date(2000, 1, 1);
             const elements =Forger.create<Date[][]>({dateMax: upLimit, dateMin: bottomLimit})![0];
             //
-            expect(elements.filter(n => n.getTime() > upLimit.getTime() || n.getTime() < bottomLimit.getTime()).length).toBeFalsy();
+            elements.forEach(d => should().date(d).inRange(bottomLimit, upLimit));
         })
     })
 });

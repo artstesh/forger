@@ -11,9 +11,9 @@ describe('String-array-function', () => {
         })
 
         it('string, not the same', () => {
-            const elements = new Set(Forger.create<(()=> string)[]>()!.map(e => e()));
+            const elements = Forger.create<(()=> string)[]>()!.map(e => e());
             //
-            expect(elements.size > 1).toBeTruthy();
+            should().array(elements).uniq();
         })
     });
 

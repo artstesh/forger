@@ -61,9 +61,9 @@ describe('Object-number factory', () => {
             })
 
             it('number, not the same', () => {
-                const elements = new Set(Forger.create<Test>()!.prop);
+                const elements = Forger.create<Test>()!.prop;
                 //
-                expect(elements.size > 1).toBeTruthy();
+                should().array(elements).uniq();
             })
 
             it('floor by default', () => {
@@ -80,7 +80,7 @@ describe('Object-number factory', () => {
                 const upLimit = 3;
                 const elements = Forger.create<Test>({numberMax: upLimit, arrayLength: 10})!.prop;
                 //
-                expect(elements.filter(n => n > upLimit).length).toBeFalsy();
+                should().array(elements).containOnly(e => e! <= upLimit);
             })
 
             it('follow numberMax', () => {
@@ -89,7 +89,7 @@ describe('Object-number factory', () => {
                 const elements = Forger.create<Test>({numberMax: upLimit,
                     numberMin: bottomLimit, arrayLength: 10})!.prop;
                 //
-                expect(elements.filter(n => n < bottomLimit).length).toBeFalsy();
+                should().array(elements).containOnly(e => e! >= bottomLimit);
             })
 
             it('float success', () => {
@@ -119,9 +119,9 @@ describe('Object-number factory', () => {
             })
 
             it('number, not the same', () => {
-                const elements = new Set(Forger.create<Test>()!.prop[0]);
+                const elements = Forger.create<Test>()!.prop[0];
                 //
-                expect(elements.size > 1).toBeTruthy();
+                should().array(elements).uniq();
             })
 
             it('floor by default', () => {
@@ -137,7 +137,7 @@ describe('Object-number factory', () => {
                 const upLimit = 3;
                 const elements = Forger.create<Test>({numberMax: upLimit, arrayLength: 10})!.prop[0];
                 //
-                expect(elements.filter(n => n > upLimit).length).toBeFalsy();
+                should().array(elements).containOnly(e => e! <= upLimit);
             })
 
             it('follow numberMax', () => {
@@ -146,7 +146,7 @@ describe('Object-number factory', () => {
                 const elements = Forger.create<Test>({numberMax: upLimit,
                     numberMin: bottomLimit, arrayLength: 10})!.prop[0];
                 //
-                expect(elements.filter(n => n < bottomLimit).length).toBeFalsy();
+                should().array(elements).containOnly(e => e! >= bottomLimit);
             })
 
             it('float success', () => {
@@ -180,7 +180,7 @@ describe('Object-number factory', () => {
                 const upLimit = 3;
                 const element = Forger.create<Test>({numberMax: upLimit})!.prop;
                 //
-                expect(element[0] <= upLimit).toBeTruthy();
+                should().number(element[0]).lessOrEqual(upLimit);
             })
 
             it('follow bottom limit', () => {

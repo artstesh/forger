@@ -1,13 +1,20 @@
 import { Forger } from '../src';
+import { should } from "@artstesh/it-should";
+
+interface ActivityBase {
+    fieldId?: null | string;
+}
+type FertilizerControl = ActivityBase & {
+    'brandName'?: number;
+} & {
+};
 
 describe('partial#', () => {
 
     it('inner generics success', () => {
-        interface Test {prop: string, other: string}
-        const obj = Forger.createWith<Test>({stringLength: 2})
-          .with(t => t.prop = Forger.create<string>({stringSpecial: false})!)
-          .result();
+        const obj = Forger.create<FertilizerControl>()!;
         //
-        expect(obj!.other).toBeTruthy();
+        console.log(obj);
+        should().false(obj.fieldId);
     });
 })

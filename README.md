@@ -24,7 +24,7 @@ describe('student.service', () => {
       const result = studentService.save(student);
       //
       console.log(student) // { name: 'I8SE1ou3ZD', age: 345 }
-      expect(result).toBeTruthy();
+      should().true(result);
    })
 });
 ```

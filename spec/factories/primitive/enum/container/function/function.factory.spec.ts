@@ -1,14 +1,15 @@
 import {Forger} from "../../../../../../src/forger";
+import { should } from "@artstesh/it-should";
 
 enum UnderTestEnum {
-    One, Two, Three
+    One = 1, Two, Three
 }
 
 describe('Enum factory', () => {
     it('success', () => {
         const result = Forger.create<() => ()=>UnderTestEnum>()!()();
         //
-        expect(result).not.toBeUndefined();
+        should().true(result);
         expect(Object.values(UnderTestEnum).includes(result!)).toBeTruthy();
     })
 })

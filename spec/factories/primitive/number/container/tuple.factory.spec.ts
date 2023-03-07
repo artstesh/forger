@@ -14,7 +14,7 @@ describe('Tuple of numbers', () => {
             const upLimit = 3;
             const elements = Forger.create<[number]>({numberMax: upLimit})![0];
             //
-            expect(elements <= upLimit).toBeTruthy();
+            should().number(elements).lessOrEqual(upLimit);
         })
 
         it('follow bottom limit', () => {
@@ -45,7 +45,7 @@ describe('Tuple of numbers', () => {
             //
             const element = Forger.create<[number]>({numberMax, numberMin})![0];
             //
-            expect(element >= numberMin).toBeTruthy();
+            should().number(element).greaterOrEqual(numberMin);
         })
     });
 })

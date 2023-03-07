@@ -6,20 +6,20 @@ describe('Settings', () => {
 
     describe('object', () => {
         it('literal', function () {
-            const result = Forger.create<boolean[]>({arrayLength: 6})?.length;
+            const result = Forger.create<boolean[]>({arrayLength: expectedLength})!;
             //
-            expect(result).toEqual(expectedLength)
+            should().array(result).length(expectedLength);
         });
         it('variable', function () {
-            const result = Forger.create<boolean[]>({arrayLength: expectedLength})?.length;
+            const result = Forger.create<boolean[]>({arrayLength: expectedLength});
             //
-            expect(result).toEqual(expectedLength)
+            should().array(result).length(expectedLength);
         });
         it('func', function () {
             const func = (n: number) => n;
-            const result = Forger.create<boolean[]>({arrayLength: func(expectedLength)})?.length;
+            const result = Forger.create<boolean[]>({arrayLength: func(expectedLength)});
             //
-            expect(result).toEqual(expectedLength)
+            should().array(result).length(expectedLength);
         });
     })
 

@@ -7,7 +7,7 @@ describe('Array factory general', () => {
         it('number', () => {
             const result = Forger.create<Array<string>>()!;
             //
-            expect(result).not.toBeUndefined();
+            should().array(result).defined();
             should().string(typeof result[0]).equals('string');
         })
     });

@@ -8,14 +8,14 @@ describe('interface generics', () => {
       interface Test<T>{field: T}
       const result = Forger.create<Test<string>>()!;
       //
-      expect(result.field).toBeTruthy();
+      should().true(result.field);
     });
 
     it('generate generic number', () => {
       interface Test<T>{field: T}
       const result = Forger.create<Test<number>>()!;
       //
-      expect(result.field).toBeTruthy();
+      should().true(result.field);
     });
 
     it('generate generic boolean', () => {
@@ -30,8 +30,8 @@ describe('interface generics', () => {
     interface Test<T>{field: T}
     const result = Forger.create<Test<Date>>()!;
     //
-    expect(result.field).toBeTruthy();
-    expect( result.field instanceof Date).toBeTruthy();
+    should().true(result.field);
+    should().true( result.field instanceof Date);
   });
 
   it('generate generic object', () => {
@@ -39,15 +39,15 @@ describe('interface generics', () => {
     interface Test<T>{field: T}
     const result = Forger.create<Test<InnerTest>>()!;
     //
-    expect(result.field.childField).toBeTruthy();
+    should().true(result.field.childField);
   });
 
   it('non-generic generates successfully', () => {
     interface Test<T>{field: T, otherField: string}
     const result = Forger.create<Test<number>>()!;
     //
-    expect(result.otherField).toBeTruthy();
-    expect(result.field).toBeTruthy();
+    should().true(result.otherField);
+    should().true(result.field);
   });
 
   it('a few parameters success', () => {
@@ -62,7 +62,7 @@ describe('interface generics', () => {
     interface Test<T, Z>{field: Z, otherField: T}
     const result = Forger.create<Test<string, number>>()!;
     //
-    expect(result.otherField?.length).toBeTruthy();
-    expect(result.field).toBeTruthy();
+    should().true(result.otherField?.length);
+    should().true(result.field);
   });
 })
