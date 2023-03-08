@@ -11,6 +11,7 @@ import { ForgerType } from '../../../models/forger.type';
 import { ArrayInterfaceTransformer } from './array-interface.transformer';
 import { UnionTransformer } from './union.transformer';
 import { GenerationDataModel } from '../../../models/generation-data.model';
+import { CustomTypeTransformer } from "./custom-type.transformer";
 
 export class MainTransformer {
   public static _circularDepth = 1;
@@ -35,7 +36,8 @@ export class MainTransformer {
     ValueTypeTransformer.instance(),
     DateTransformer.instance(),
     EnumTransformer.instance(),
-    PrimitiveTransformer.instance(),
+    CustomTypeTransformer.instance(),
+    PrimitiveTransformer.instance()
   ];
 
   public static create(node: ts.Node, data: GenerationDataModel): ForgerElement {

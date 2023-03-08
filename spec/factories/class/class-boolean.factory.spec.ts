@@ -45,7 +45,7 @@ describe('Object-boolean factory', () => {
         })
 
         it('not the same', () => {
-            const elements = Forger.create<Test>({arrayLength: 10})!.prop[0];
+            const elements = Forger.create<Test>({arrayLength: 30})!.prop[0];
             //
             should().true(new Set(elements).size > 1);
         })

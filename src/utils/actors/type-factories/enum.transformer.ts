@@ -15,7 +15,7 @@ export class EnumTransformer implements ITypeTransformer {
   }
 
   private getEnumValues(type: ts.Type): (string | number | ts.PseudoBigInt)[] {
-    return (type as ts.IntersectionType).types?.map((n) => (n as ts.LiteralType).value) || [];
+    return (type as ts.IntersectionType).types?.map((n) => (n as ts.LiteralType).value)?.filter(e => !!e) || [];
   }
 
   public isApplicable(node: ts.Node): boolean {

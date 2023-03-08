@@ -37,6 +37,15 @@ describe('Object factory', () => {
                 expect(result!.prop[0]).toBeDefined();
                 expect(result!.prop[1]).toBeDefined();
             })
+
+            it('combined types success', () => {
+                interface ITest { field: null | string; }
+                type SomeType = ITest & { 'id'?: number; };
+                const obj = Forger.create<SomeType>()!;
+                //
+                should().true(obj.field);
+                should().true(obj.id);
+            });
         })
         describe('create() array of objects', () => {
 
