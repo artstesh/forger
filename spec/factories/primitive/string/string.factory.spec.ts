@@ -45,28 +45,28 @@ describe("String factory", () => {
         //
         const result = Forger.create<string>({ stringSpecial: false, stringLowCase: false, stringUpCase: false });
         //
-        expect(result!.match(/^\d+$/gm)).toBeTruthy();
+        should().string(result!).match(/^\d+$/gm);
       });
 
       it("only low letters", () => {
         //
         const result = Forger.create<string>({ stringSpecial: false, stringNumbers: false, stringUpCase: false });
         //
-        expect(result!.match(/^[a-z]+$/gm)).toBeTruthy();
+        should().string(result!).match(/^[a-z]+$/gm);
       });
 
       it("only up letters", () => {
         //
         const result = Forger.create<string>({ stringSpecial: false, stringNumbers: false, stringLowCase: false });
         //
-        expect(result!.match(/^[A-Z]+$/gm)).toBeTruthy();
+        should().string(result!).match(/^[A-Z]+$/gm);
       });
 
       it("only specials", () => {
         //
         const result = Forger.create<string>({ stringLowCase: false, stringNumbers: false, stringUpCase: false });
         //
-        expect(result!.match(/^[^A-Za-z\d]+$/gm)).toBeTruthy();
+        should().string(result!).match(/^[^A-Za-z\d]+$/gm);
       });
 
       it("empty if all settings false", () => {

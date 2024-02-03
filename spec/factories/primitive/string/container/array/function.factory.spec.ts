@@ -29,28 +29,28 @@ describe('String-array-function', () => {
             //
             const result = Forger.create<(()=> string)[]>({stringSpecial: false, stringLowCase: false, stringUpCase: false})!;
             //
-            expect(result[0]().match(/^\d+$/gm)).toBeTruthy();
+            should().string(result[0]()).match(/^\d+$/gm);
         })
 
         it('only low letters', () => {
             //
             const result = Forger.create<(()=> string)[]>({stringSpecial: false, stringNumbers: false, stringUpCase: false})!;
             //
-            expect(result[0]().match(/^[a-z]+$/gm)).toBeTruthy();
+            should().string(result[0]()).match(/^[a-z]+$/gm);
         })
 
         it('only up letters', () => {
             //
             const result = Forger.create<(()=> string)[]>({stringSpecial: false, stringNumbers: false, stringLowCase: false})!;
             //
-            expect(result[0]().match(/^[A-Z]+$/gm)).toBeTruthy();
+            should().string(result[0]()).match(/^[A-Z]+$/gm);
         })
 
         it('only specials', () => {
             //
             const result = Forger.create<(()=> string)[]>({stringLowCase: false, stringNumbers: false, stringUpCase: false})!;
             //
-            expect(result[0]().match(/^[^A-Za-z\d]+$/gm)).toBeTruthy();
+            should().string(result[0]()).match(/^[^A-Za-z\d]+$/gm);
         })
     })
 });

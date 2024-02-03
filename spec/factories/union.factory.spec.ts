@@ -1,4 +1,5 @@
 import {Forger} from "../../src";
+import { should } from "@artstesh/it-should";
 
 describe('Union factory', () => {
 
@@ -7,7 +8,7 @@ describe('Union factory', () => {
         //
         const result = Forger.create<('a' | undefined)[]>({arrayLength})!;
         //
-        expect(result.filter(e => e === 'a').length === arrayLength).toBeTruthy();
+        should().array(result).containOnly(e => e === 'a');
     });
 
     it('ignore null', () => {
@@ -15,22 +16,22 @@ describe('Union factory', () => {
         //
         const result = Forger.create<('a' | null)[]>({arrayLength})!;
         //
-        expect(result.filter(e => e === 'a').length === arrayLength).toBeTruthy();
+        should().array(result).containOnly(e => e === 'a');
     });
 
     it('literals are different', () => {
         const result = Forger.create<('a' | 2 | true)[]>({arrayLength: 30})!;
         //
-        expect(result.filter(e => e === 'a').length).toBeTruthy();
-        expect(result.filter(e => e === 2).length).toBeTruthy();
-        expect(result.filter(e => e === true).length).toBeTruthy();
+        should().array(result).contain('a');
+        should().array(result).contain(2);
+        should().array(result).contain(true);
     });
 
     it('literal with object', () => {
         interface Test {field: string}
         const result = Forger.create<('a' | Test)[]>({arrayLength: 20})!;
         //
-        expect(result.filter(e => e === 'a').length).toBeTruthy();
-        expect(result.filter(e => typeof e === 'object' && ('field' in e)).length).toBeTruthy();
+        should().array(result).contain('a');
+        should().array(result).containBy(e => typeof e === 'object' && ('field' in e!));
     });
 })

@@ -237,8 +237,8 @@ describe('Object factory', () => {
             interface Test { field: ('a' | 1)[] }
             const result = Forger.create<Test | undefined>({arrayLength: 20})!;
             //
-            expect(result.field.filter(e => e === 'a').length).toBeTruthy();
-            expect(result.field.filter(e => e === 1).length).toBeTruthy();
+            should().array(result.field).contain('a');
+            should().array(result.field).contain(1);
         });
 
         it('object array circular count by prop', () => {
@@ -246,7 +246,7 @@ describe('Object factory', () => {
             interface Test { tests: InnerTest[]; tests2: InnerTest[]; tests3: InnerTest[];}
             const result = Forger.create<Test>({}, 1)!;
             //
-            expect(result.tests3[0]).not.toBeNull();
+            should().true(result.tests3[0]);
         });
 
         it('inner generics success', () => {
