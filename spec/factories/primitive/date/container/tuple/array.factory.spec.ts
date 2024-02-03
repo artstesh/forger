@@ -6,7 +6,7 @@ describe('Date-tuple-array', () => {
         it('correct type', () => {
             const elements = Forger.create<[Date[]]>()![0];
             //
-            should().date(elements![0]).beTypeOf(Date);
+            should().true(elements![0] instanceof Date);
         })
 
         it('not the same', () => {

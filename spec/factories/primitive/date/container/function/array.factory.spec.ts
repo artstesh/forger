@@ -6,7 +6,7 @@ describe('Date-function-array', () => {
         it('correct type', () => {
             const date = Forger.create<() => Date[]>()!();
             //
-            should().date(date[0]).beTypeOf(Date);
+            should().true(date[0] instanceof Date);
         })
     });
 

@@ -6,7 +6,7 @@ describe('Tuple of number-tuple', () => {
         it('correct type', () => {
             const element = Forger.create<[[number]]>();
             //
-            should().number(element![0][0]).beTypeOf('number');
+            should().true(typeof element![0][0] === 'number');
         })
     });
     describe('custom settings', () => {

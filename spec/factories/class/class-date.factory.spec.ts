@@ -8,7 +8,7 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const element = Forger.create<Test>();
                 //
-                should().date(element!.prop).beTypeOf(Date);
+                should().true(element!.prop instanceof Date);
             })
         });
         describe('custom settings', () => {
@@ -27,7 +27,7 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const elements = Forger.create<Test>();
                 //
-                should().date(elements!.prop[0]).beTypeOf(Date);
+                should().true(elements!.prop[0] instanceof Date);
             })
 
             it('not the same', () => {
@@ -53,7 +53,7 @@ describe('Object-date factory', () => {
             it('correct type', () => {
                 const elements = Forger.create<Test>()!.prop;
                 //
-                should().date(elements[0][0]).beTypeOf(Date);
+                should().true(elements[0][0] instanceof Date);
             })
 
             it('not the same', () => {
@@ -78,7 +78,7 @@ describe('Object-date factory', () => {
         it('success lambda result', () => {
             const result = Forger.create<()=> Date>()!();
             //
-            should().date(result).beTypeOf(Date);
+            should().true(result instanceof Date);
         })
     })
 })
