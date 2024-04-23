@@ -1,6 +1,6 @@
 {
   "name": "@artstesh/forger",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A legal way to forge everything you want ;)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -48,8 +48,7 @@
     "tslint-config-prettier": "1.18.0",
     "ts-patch": "3.1.2",
     "typescript": "^5.0.2",
-    "@artstesh/it-should": "^1.1.4",
-    "tsutils": "2.29.0"
+    "@artstesh/it-should": "^1.1.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.2"
