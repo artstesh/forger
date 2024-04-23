@@ -19,11 +19,12 @@ export function factory(compilerInstance: any): ts.TransformerFactory<ts.SourceF
  * @param program Program
  */
 export const transformer =
-  (program: ts.Program | { getTypeChecker(): ts.TypeChecker }): ts.TransformerFactory<ts.SourceFile> =>
-  (context) => {
-    return (file) => {
-      Checker.setChecker(program.getTypeChecker());
-      return ts.visitNode(file, visitNode(context, program.getTypeChecker()));
+  (program: ts.Program | { getTypeChecker(): ts.TypeChecker }): ts.TransformerFactory<ts.SourceFile> => {
+    return (context) => {
+      return (file) => {
+        Checker.setChecker(program.getTypeChecker());
+        return ts.visitNode(file, visitNode(context, program.getTypeChecker())) as any;
+      };
     };
   };
 
