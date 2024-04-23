@@ -18,15 +18,16 @@ export function factory(compilerInstance: any): ts.TransformerFactory<ts.SourceF
  * Typescript transformer factory
  * @param program Program
  */
-export const transformer =
-  (program: ts.Program | { getTypeChecker(): ts.TypeChecker }): ts.TransformerFactory<ts.SourceFile> => {
-    return (context) => {
-      return (file) => {
-        Checker.setChecker(program.getTypeChecker());
-        return ts.visitNode(file, visitNode(context, program.getTypeChecker())) as any;
-      };
+export const transformer = (
+  program: ts.Program | { getTypeChecker(): ts.TypeChecker },
+): ts.TransformerFactory<ts.SourceFile> => {
+  return (context) => {
+    return (file) => {
+      Checker.setChecker(program.getTypeChecker());
+      return ts.visitNode(file, visitNode(context, program.getTypeChecker())) as any;
     };
   };
+};
 
 const isTargetExpression = (target: ts.CallExpression) =>
   ts.isPropertyAccessExpression(target.expression) &&
