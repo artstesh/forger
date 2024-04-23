@@ -4,7 +4,7 @@ module.exports = {
   cache: false,
   globals: {
     'ts-jest': {
-      compiler: 'ttypescript',
+      compiler: 'ts-patch/compiler',
       astTransformers: {
         before: ['./src/utils/transformer']
       }

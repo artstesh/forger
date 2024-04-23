@@ -3,7 +3,7 @@ module.exports = {
   preset: "ts-jest",
   transform: {
     ".*.spec.ts": ["ts-jest", {
-      compiler: "ttypescript",
+      compiler: "ts-patch/compiler",
       astTransformers: {
         before: ["./src/utils/transformer"]
       }
