@@ -31,7 +31,8 @@
   "author": "artstesh",
   "license": "MIT",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "AI_SKILL.md"
   ],
   "repository": {
     "type": "git",
@@ -51,6 +52,6 @@
     "@artstesh/it-should": "^1.1.4"
   },
   "peerDependencies": {
-    "typescript": "^5.0.2"
+    "typescript": ">=5.0.2 <7"
   }
 }

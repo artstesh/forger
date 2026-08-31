@@ -9,6 +9,12 @@ Forger is designed to make it easier to write test code in terms of creating aut
 
 See details in [Wiki](https://github.com/artstesh/forger/wiki)
 
+### For AI assistants
+
+The package ships `AI_SKILL.md` — machine-oriented instructions for AI coding assistants
+covering setup, API, type behavior, and troubleshooting. Point your tooling at
+`node_modules/@artstesh/forger/AI_SKILL.md`.
+
 ### Overview
 
 Forger is designed to save the developer from manually creating numerous test data, saving time and not littering the code with declarations of data that is not important for the test, thus facilitating both writing and reading tests.

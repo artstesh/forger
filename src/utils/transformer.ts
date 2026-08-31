@@ -36,6 +36,21 @@ const isTargetExpression = (target: ts.CallExpression) =>
   target.expression.expression.text === 'Forger';
 
 /**
+ * Text of a type node, used as the prohibited-props key.
+ * In the language-service emit path a node can be detached from its source file,
+ * making getText() throw — fall back to the checker representation.
+ * @param node Type node
+ * @param checker Type checker
+ */
+const typeText = (node: ts.TypeNode, checker: ts.TypeChecker): string => {
+  try {
+    return node.getText();
+  } catch (e) {
+    return checker.typeToString(checker.getTypeFromTypeNode(node));
+  }
+};
+
+/**
  * Typescript AST Node visitor
  * @param context Transformation context
  * @param checker Type checker
@@ -61,7 +76,7 @@ const visitNode =
     const forgerElement = MainTransformer.create(typeArgument, {
       counter: {},
       genericInfo: null,
-      prohibitedProps: { [typeArgument.getText()]: ProhibitedPropsExtractorService.extract(node) },
+      prohibitedProps: { [typeText(typeArgument, checker)]: ProhibitedPropsExtractorService.extract(node) },
     });
     return ts.factory.updateCallExpression(node, node.expression, node.typeArguments, [
       settingsArg,
