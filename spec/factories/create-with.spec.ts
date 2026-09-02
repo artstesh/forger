@@ -57,4 +57,22 @@ describe('createWith', () => {
     should().string(obj?.inner.prop).defined();
     should().string(obj?.inner.prop).not.equals(expected);
   })
+
+  it('date property works without explicit settings', () => {
+    interface Test {prop: string, created: Date}
+    //
+    const obj = Forger.createWith<Test>().with(t => t.prop = 'fixed').result();
+    //
+    should().string(obj!.prop).equals('fixed');
+    expect(obj!.created).toBeInstanceOf(Date);
+  })
+
+  it('partial settings are merged with defaults', () => {
+    interface Test {amount: number, created: Date}
+    //
+    const obj = Forger.createWith<Test>({numberMax: 5}).result();
+    //
+    should().number(obj!.amount).lessOrEqual(5);
+    expect(obj!.created).toBeInstanceOf(Date);
+  })
 })

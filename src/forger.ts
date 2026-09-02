@@ -31,6 +31,7 @@ export class Forger {
    * @returns {@link CreateWithModel}
    */
   static createWith<T>(settings: SpoofSettings = {}, circularDepth = 1, ...args: ForgerElement[]): CreateWithModel<T> {
+    settings = settings ? { ...new SpoofSettings(), ...settings } : new SpoofSettings();
     return new CreateWithModel<T>(MainFactory.produce(args[0], settings) as T);
   }
 }
