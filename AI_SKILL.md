@@ -76,8 +76,7 @@ module.exports = {
 |-----------------------------------|---------------------------------------------------------------|
 | `string` / `number` / `boolean`   | Random primitive per settings                                 |
 | `Date`                            | Random date in window                                         |
-| Numeric enum                      | Random member; the `0`-valued member is NEVER picked          |
-| String enum                       | Always `0` — avoid; use a literal union or pin a member       |
+| Enum (numeric or string)         | Random member; all members reachable, incl. value `0`        |
 | Literal union `'a' \| 'b' \| 42`  | Random member (falsy members reachable, unlike enums)         |
 | Standalone literal `'x'`          | `null` — only union members work                              |
 | Union with `null`/`undefined`     | Nullable members dropped; a non-null member always wins       |
@@ -112,6 +111,5 @@ expect(mapper(dto)).toBe(expected);
 |----------------------------------|---------------------------------------------------------------|
 | `create<T>()` → `undefined`      | Transformer not applied: check `plugins`, `ts-patch/compiler`, `astTransformers`; clear jest cache |
 | Still `undefined` after fix      | Two `typescript` copies in the module tree — keep exactly one (`npm ls typescript`) |
-| String enum is `0`               | Expected — use literal union or pin                           |
 | Method not callable              | Class methods forge as data — use function-typed properties   |
 | Deep tree is `null` early        | Raise `circularDepth` (second argument)                       |

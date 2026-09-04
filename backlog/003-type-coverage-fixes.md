@@ -1,6 +1,9 @@
 # Type coverage fixes: enums, literals, methods, built-in collections
 
-Status: proposed
+Status: in-progress
+
+> Item 1 (enum pipeline) is implemented and verified — see the implementation log. Remaining:
+> items 2–5 (standalone literals, methods as functions, built-in collections).
 
 ## Problem
 
@@ -38,3 +41,16 @@ Four verified gaps where forged values do not match the declared type:
 `src/utils/actors/type-factories/` (enum, literal, primitive, custom-type),
 `src/factories/` (enum, literal, new map/set/promise factories), `src/models/forger.type.ts`
 (new ForgerType entries), `spec/`, docs.
+
+## Implementation log
+
+- **Item 1 — enum pipeline (2026-09-04).** `EnumTransformer.getEnumValues`: filter is now
+  `!== undefined && !== null` (was truthiness — dropped `0` and `''`); single-member enums
+  no longer fall through — when the type has no `.types` union, it is used directly if it
+  carries an enum flag (`TypeFlags.EnumLiteral | TypeFlags.Enum`). `EnumFactory.produce`
+  picks the raw member by random index (was `Number()` + `isNaN` filter, which destroyed
+  string members, plus a biased shuffle). Specs added: string enum (top-level and in array),
+  zero-member reachability over 30 rolls, zero-only enum. Full suite: 72 suites / 320 tests
+  green. Docs updated: `Enums.md` (rewritten — string enums and zero members supported),
+  `Supported-Types.md`, `Caveats.md` (two rows removed), `Literals.md` (comparison table),
+  `AI_SKILL.md` (behavior and troubleshooting rows).

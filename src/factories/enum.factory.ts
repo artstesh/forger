@@ -1,7 +1,6 @@
 import { ForgerElement } from '../models/forger-element.model';
 import { ForgerType } from '../models/forger.type';
 import { ITypeFactory } from './i-type.factory';
-import { SpoofSettings } from '../models/spoof.settings';
 
 export class EnumFactory implements ITypeFactory {
   private static factory: EnumFactory = new EnumFactory();
@@ -11,9 +10,9 @@ export class EnumFactory implements ITypeFactory {
     return element.type === ForgerType.Enum;
   }
 
-  public produce(element: ForgerElement, settings: SpoofSettings): any {
-    const possible = element.restrictions?.map((r) => Number(r)).filter((r) => !isNaN(r)) || [];
+  public produce(element: ForgerElement): any {
+    const possible = element.restrictions || [];
     if (!possible.length) return 0;
-    return possible.sort(() => 0.5 - Math.random())[0];
+    return possible[Math.floor(Math.random() * possible.length)];
   }
 }

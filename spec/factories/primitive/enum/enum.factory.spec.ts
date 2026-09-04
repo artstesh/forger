@@ -5,6 +5,18 @@ enum UnderTestEnum {
     One = 1, Two, Three
 }
 
+enum StringUnderTestEnum {
+    First = 'first', Second = 'second'
+}
+
+enum MixedUnderTestEnum {
+    Off, On
+}
+
+enum ZeroOnlyUnderTestEnum {
+    Off
+}
+
 describe('Enum factory', () => {
     it('success', () => {
         const result = Forger.create<UnderTestEnum>();
@@ -65,5 +77,32 @@ describe('Enum factory', () => {
         //
         expect(Object.values(UnderTestEnum).includes(element)).toBeTruthy();
         expect(Object.values(UnderTestEnum).includes(element2)).toBeTruthy();
+    })
+
+    it('string enum member', () => {
+        const element = Forger.create<StringUnderTestEnum>()!;
+        //
+        should().string(typeof element).equals('string');
+        expect(Object.values(StringUnderTestEnum).includes(element)).toBeTruthy();
+    })
+
+    it('string enum member in array', () => {
+        const element = Forger.create<StringUnderTestEnum[]>()![0];
+        //
+        expect(Object.values(StringUnderTestEnum).includes(element!)).toBeTruthy();
+    })
+
+    it('zero member is reachable', () => {
+        const elements = Array.from({length: 30}).map(() => Forger.create<MixedUnderTestEnum>()!);
+        //
+        expect(new Set(elements).has(MixedUnderTestEnum.Off)).toBeTruthy();
+        expect(new Set(elements).has(MixedUnderTestEnum.On)).toBeTruthy();
+    })
+
+    it('zero-only enum', () => {
+        const element = Forger.create<ZeroOnlyUnderTestEnum>()!;
+        //
+        should().number(element).equals(ZeroOnlyUnderTestEnum.Off);
+        expect(element).toBe(0);
     })
 })

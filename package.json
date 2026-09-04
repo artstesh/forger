@@ -13,7 +13,7 @@
     "postversion": "git push && git push --tags",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "test": "tspc -b tsconfig.test.json && jest --config jest.config.js",
+    "test": "tspc -b tsconfig.test.json && jest --config jest.config.js --no-cache",
     "build": "tspc -b tsconfig.json",
     "pre-jest": "tspc -b tsconfig.test.json",
     "debug-jest": "jest --config jest.config.js -- /spec/partial.spec.ts --clearCache"

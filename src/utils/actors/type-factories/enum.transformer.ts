@@ -15,7 +15,12 @@ export class EnumTransformer implements ITypeTransformer {
   }
 
   private getEnumValues(type: ts.Type): (string | number | ts.PseudoBigInt)[] {
-    return (type as ts.IntersectionType).types?.map((n) => (n as ts.LiteralType).value)?.filter((e) => !!e) || [];
+    // tslint:disable-next-line: no-bitwise
+    const enumFlag = ts.TypeFlags.EnumLiteral | ts.TypeFlags.Enum;
+    // tslint:disable-next-line: no-bitwise
+    const isEnumLike = (type.flags & enumFlag) !== 0;
+    const candidates = (type as ts.IntersectionType).types ?? (isEnumLike ? [type as ts.LiteralType] : []);
+    return candidates.map((n) => (n as ts.LiteralType).value).filter((e) => e !== undefined && e !== null);
   }
 
   public isApplicable(node: ts.Node): boolean {
