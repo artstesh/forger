@@ -70,9 +70,7 @@ const visitNode =
     const [typeArgument] = node.typeArguments;
     // The depth static is shared by all call sites, so resolve it from this call's
     // own argument (or the default) before building the tree and the injected argument.
-    MainTransformer.setCircularDepth(
-      node.arguments.length === 2 ? (node.arguments[1] as ts.NumericLiteral).text : 1,
-    );
+    MainTransformer.setCircularDepth(node.arguments.length === 2 ? (node.arguments[1] as ts.NumericLiteral).text : 1);
     const circularArg =
       node.arguments.length === 2
         ? node.arguments[1]
