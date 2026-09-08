@@ -1,6 +1,6 @@
 # Bug: circularDepth state leaks across call sites
 
-Status: proposed
+Status: in-progress (branch `v2`)
 
 ## Problem
 

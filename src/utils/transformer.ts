@@ -67,12 +67,16 @@ const visitNode =
     const settingsArg = !!node.arguments.length
       ? node.arguments[0]
       : ts.factory.createRegularExpressionLiteral(JSON.stringify({}));
+    const [typeArgument] = node.typeArguments;
+    // The depth static is shared by all call sites, so resolve it from this call's
+    // own argument (or the default) before building the tree and the injected argument.
+    MainTransformer.setCircularDepth(
+      node.arguments.length === 2 ? (node.arguments[1] as ts.NumericLiteral).text : 1,
+    );
     const circularArg =
-      node.arguments?.length === 2
+      node.arguments.length === 2
         ? node.arguments[1]
         : ts.factory.createRegularExpressionLiteral(JSON.stringify(MainTransformer.CircularDepth));
-    const [typeArgument] = node.typeArguments;
-    MainTransformer.setCircularDepth((node.arguments[1] as ts.NumericLiteral)?.text);
     const forgerElement = MainTransformer.create(typeArgument, {
       counter: {},
       genericInfo: null,

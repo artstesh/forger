@@ -249,6 +249,16 @@ describe('Object factory', () => {
             should().true(result.tests3[0]);
         });
 
+        it('circular depth does not leak into the next create call', () => {
+            class InnerTest {parent!: Test}
+            interface Test {child: InnerTest; prop: string}
+            const deep = Forger.create<Test>({}, 2);
+            const obj = Forger.create<Test>();
+            //
+            expect(deep!.child.parent.child.parent).toBeDefined();
+            expect(obj!.child.parent.child.parent).toBeNull();
+        });
+
         it('inner generics success', () => {
             interface Inner<C> {field: C}
             interface Test<T, Z>{inner: Inner<T>}
