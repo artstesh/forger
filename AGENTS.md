@@ -14,6 +14,10 @@ and apply here as well.
 
 - The working branch is `v2`; `main` mirrors the current line. Never mix changes for
   different lines in one commit/PR.
+- The v1 toolchain runs only on older Node: `ttypescript` patches Node's `Module` and fails
+  to load from Node 18.18 on (`Cannot set property constructor … which has only a getter`),
+  before any compilation starts. Verified working on Node 18.10. When running v1 tests,
+  point PATH at an nvm-installed Node ≤ 18.10; the v2 line (`ts-patch`) is unaffected.
 - TypeScript 6 compatibility was verified end to end (ts-patch 4 + `tspc`, ts-jest 29.4):
   the transformer architecture works; pending fixes are tracked in `backlog/`.
 - TypeScript 7 (tsgo, the native compiler) has no JS Compiler API and cannot run custom
