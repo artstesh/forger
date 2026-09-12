@@ -37,6 +37,24 @@ describe('student.service', () => {
 
 The point of this simple test is to check the result of the response of a certain service. For us, it does not matter at all what specific data will be transferred inside the student. In the absence of Forger, the developer would be forced to manually write some kind of stub, furthermore creating uncertainty for the reader about the importance of this data. With Forger, the test contains only the data that is really important to it.
 
+### Vitest / Vite pipelines
+
+Vitest compiles with esbuild, which does not run `tsconfig` `plugins` transformers — wire the
+shipped Vite plugin instead:
+
+```typescript
+/** vitest.config.ts */
+import { defineConfig } from 'vitest/config';
+import { defineForgerVitestPlugin } from '@artstesh/forger';
+
+export default defineConfig({
+  plugins: [defineForgerVitestPlugin({ tsconfig: 'tsconfig.spec.json' })],
+});
+```
+
+A `Forger.create<T>()` call that reaches runtime unrewritten throws a descriptive error
+(`transformerNotAppliedMessage`) — it never fails silently.
+
 ### License
 
 This project is licensed under the MIT License

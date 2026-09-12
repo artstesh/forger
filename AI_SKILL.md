@@ -1,6 +1,6 @@
 ---
 name: forger
-description: Test-data generation for TypeScript via @artstesh/forger — forge fully populated fakes of any type with Forger.create<T>() / Forger.createWith<T>(). Use when writing Jest/Karma tests in TypeScript projects where mock objects, fixtures, or test-data builders are needed.
+description: Test-data generation for TypeScript via @artstesh/forger — forge fully populated fakes of any type with Forger.create<T>() / Forger.createWith<T>(). Use when writing Jest/Karma/Vitest tests in TypeScript projects where mock objects, fixtures, or test-data builders are needed.
 ---
 
 # Forger — AI Assistant Instructions
@@ -36,10 +36,22 @@ module.exports = {
 };
 ```
 
+```typescript
+// vitest.config.ts — Vitest/Vite compile with esbuild and ignore tsconfig plugins;
+// register the shipped Vite plugin instead (no ts-patch needed on this route)
+import { defineConfig } from 'vitest/config';
+import { defineForgerVitestPlugin } from '@artstesh/forger';
+
+export default defineConfig({
+  plugins: [defineForgerVitestPlugin({ tsconfig: 'tsconfig.spec.json' })],
+});
+```
+
 - Dependencies: `@artstesh/forger` (peer: typescript >=5.0.2 <7), `ts-patch@^3` for TS 5,
-  `ts-patch@^4` for TS 6. Not supported on TypeScript 7 (native compiler, no transformer API).
-- Failure mode when the transformer is missing: `create<T>()` returns `undefined`. Silent —
-  no error. Fix wiring, then `jest --clearCache`.
+  `ts-patch@^4` for TS 6 (not needed for the Vitest route). Not supported on TypeScript 7
+  (native compiler, no transformer API).
+- Failure mode when the transformer is missing: `create<T>()` throws the exported
+  `transformerNotAppliedMessage` error. Fix wiring, then `jest --clearCache`.
 - `create` accepts a trailing technical argument injected by the transformer. Never pass it.
 
 ## 3. API
@@ -109,7 +121,7 @@ expect(mapper(dto)).toBe(expected);
 
 | Symptom                          | Cause / fix                                                   |
 |----------------------------------|---------------------------------------------------------------|
-| `create<T>()` → `undefined`      | Transformer not applied: check `plugins`, `ts-patch/compiler`, `astTransformers`; clear jest cache |
-| Still `undefined` after fix      | Two `typescript` copies in the module tree — keep exactly one (`npm ls typescript`) |
+| `create<T>()` throws `transformerNotAppliedMessage` | Transformer not applied: check `plugins`, `ts-patch/compiler`, `astTransformers`, or the Vitest plugin; clear jest cache |
+| Was `undefined`, still broken after fix | Two `typescript` copies in the module tree — keep exactly one (`npm ls typescript`) |
 | Method not callable              | Class methods forge as data — use function-typed properties   |
 | Deep tree is `null` early        | Raise `circularDepth` (second argument)                       |

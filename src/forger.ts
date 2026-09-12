@@ -4,6 +4,17 @@ import { MainFactory } from './factories/main.factory';
 import { CreateWithModel } from './models/create-with.model';
 
 /**
+ * Thrown by {@link Forger.create} and {@link Forger.createWith} when a call reaches
+ * runtime without the type element injected by the compile-time transformer — i.e. the
+ * code was built or tested through a pipeline that does not apply the transformer
+ * (bare tsc, an esbuild-based builder, jest without astTransformers, ...).
+ */
+export const transformerNotAppliedMessage =
+  'Forger.create<T>() reached runtime unrewritten: the Forger TypeScript transformer was not applied ' +
+  'by the build pipeline. Check the transformer wiring for your runner (ts-jest astTransformers, ' +
+  'ts-patch plugins, webpack customWebpackConfig, or the Forger vitest plugin). See https://forger.artstesh.ru';
+
+/**
  * The entry point for creating fakes
  */
 export class Forger {
@@ -16,7 +27,7 @@ export class Forger {
    */
   static create<T>(settings: SpoofSettings = {}, circularDepth = 1, ...args: ForgerElement[]): T | undefined {
     if (!args[0]) {
-      return undefined;
+      throw new Error(transformerNotAppliedMessage);
     }
     settings = settings ? { ...new SpoofSettings(), ...settings } : new SpoofSettings();
     return MainFactory.produce(args[0], settings) as T;
@@ -31,6 +42,9 @@ export class Forger {
    * @returns {@link CreateWithModel}
    */
   static createWith<T>(settings: SpoofSettings = {}, circularDepth = 1, ...args: ForgerElement[]): CreateWithModel<T> {
+    if (!args[0]) {
+      throw new Error(transformerNotAppliedMessage);
+    }
     settings = settings ? { ...new SpoofSettings(), ...settings } : new SpoofSettings();
     return new CreateWithModel<T>(MainFactory.produce(args[0], settings) as T);
   }

@@ -29,7 +29,9 @@ and apply here as well.
 Forger is a **compile-time AST transformer plus a runtime factory pipeline**:
 
 1. **Compile time.** The custom transformer (`src/utils/transformer.ts`) is applied via
-   ts-patch (`tspc`) or ts-jest (`astTransformers`, see `jest.config.js`). It finds every
+   ts-patch (`tspc`), ts-jest (`astTransformers`, see `jest.config.js`), the shipped Angular
+   webpack patch (`src/webpack.config.ts`), or the shipped Vite plugin
+   (`src/integrations/forger-vitest.plugin.ts`). It finds every
    `Forger.create<T>(...)` / `Forger.createWith<T>(...)` call, converts the type argument into
    a serialized `ForgerElement` tree (`MainTransformer` in `src/utils/actors/type-factories/`),
    and injects that tree as an extra trailing argument of the call.
@@ -38,17 +40,19 @@ Forger is a **compile-time AST transformer plus a runtime factory pipeline**:
    matches and calls its `produce()` to build the value. Primitive shape is tuned through
    `SpoofSettings`.
 
-Key consequence: **code compiled without the transformer makes `Forger.create<T>()` return
-`undefined`.** Always build and test through the project's configured pipeline — never with a
-bare `tsc`/`jest` invocation.
+Key consequence: **code compiled without the transformer makes `Forger.create<T>()` throw the
+exported `transformerNotAppliedMessage` error** (a loud failure by design — it used to return
+`undefined` silently). Always build and test through the project's configured pipeline — never
+with a bare `tsc`/`jest` invocation.
 
 ## Layout
 
 | Path                                     | Purpose                                                                   |
 |------------------------------------------|---------------------------------------------------------------------------|
-| `src/forger.ts`                          | Public API: `Forger.create`, `Forger.createWith`.                          |
+| `src/forger.ts`                          | Public API: `Forger.create`, `Forger.createWith`, `transformerNotAppliedMessage`. |
 | `AI_SKILL.md`                            | Machine-oriented instructions for AI assistants; ships in the npm package (`files`). Must stay in sync with behavior — update together with the matching docs topics. |
 | `src/index.ts`                           | Package exports.                                                           |
+| `src/integrations/forger-vitest.plugin.ts` | Vite plugin (`defineForgerVitestPlugin`) for Vitest/esbuild pipelines.   |
 | `src/factories/`                         | Runtime factories, one per type kind; `MainFactory` dispatches to the first applicable. |
 | `src/factories/i-type.factory.ts`        | The factory contract: `isApplicable()` / `produce()`.                      |
 | `src/utils/transformer.ts`               | Compile-time transformer entry point.                                      |
