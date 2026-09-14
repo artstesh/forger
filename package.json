@@ -13,7 +13,9 @@
       "types": "./lib/integrations/forger-vitest.plugin.d.ts",
       "default": "./lib/integrations/forger-vitest.plugin.js"
     },
-    "./*": "./*"
+    "./package.json": "./package.json",
+    "./*.js": "./*.js",
+    "./*": "./*.js"
   },
   "typesVersions": {
     "*": {

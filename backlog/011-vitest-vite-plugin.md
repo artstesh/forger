@@ -14,7 +14,11 @@ Extracted from 009 (its item 3).
 `defineForgerVitestPlugin(options)` in `src/integrations/forger-vitest.plugin.ts`, exported
 from the dedicated `./vitest` subpath (`@artstesh/forger/vitest`) — amended: the original
 package-root re-export pulled `path`/`typescript` into browser bundles and poisoned
-Karma/webpack runs (FE-50, 2026-09-14):
+Karma/webpack runs (FE-50, 2026-09-14). The `exports` map added for the subpath initially kept
+the extensionless `"./*": "./*"` passthrough, which broke classic deep requires — Node applies
+no extension search to `exports` targets, so the documented
+`@artstesh/forger/lib/utils/transformer` path stopped resolving (LIB-2, 2026-09-14; fixed with
+`"./*.js": "./*.js"` plus `"./*": "./*.js"`):
 
 - a `pre` vite plugin: for every `.ts`/`.tsx` file containing `Forger.create` /
   `Forger.createWith` calls, applies the existing `transformer(program)` and returns the

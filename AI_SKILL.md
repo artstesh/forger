@@ -30,7 +30,7 @@ module.exports = {
   transform: {
     '.*.spec.ts': ['ts-jest', {
       compiler: 'ts-patch/compiler',
-      astTransformers: { before: ['@artstesh/forger/lib/utils/transformer'] }
+      astTransformers: { before: ['@artstesh/forger/lib/utils/transformer.js'] }
     }]
   }
 };
