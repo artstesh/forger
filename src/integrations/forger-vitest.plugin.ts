@@ -49,7 +49,7 @@ const normalizeFileName = (fileName: string) => fileName.replace(/\\/g, '/');
  * Usage (vitest.config.ts):
  * ```typescript
  * import { defineConfig } from 'vitest/config';
- * import { defineForgerVitestPlugin } from '@artstesh/forger';
+ * import { defineForgerVitestPlugin } from '@artstesh/forger/vitest';
  *
  * export default defineConfig({
  *   plugins: [defineForgerVitestPlugin({ tsconfig: 'tsconfig.spec.json' })],

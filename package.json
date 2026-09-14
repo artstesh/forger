@@ -4,6 +4,24 @@
   "description": "A legal way to forge everything you want ;)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./vitest": {
+      "types": "./lib/integrations/forger-vitest.plugin.d.ts",
+      "default": "./lib/integrations/forger-vitest.plugin.js"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "vitest": [
+        "lib/integrations/forger-vitest.plugin"
+      ]
+    }
+  },
   "homepage": "https://forger.artstesh.ru",
   "scripts": {
     "prepare": "npm run build",

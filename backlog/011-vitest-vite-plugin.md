@@ -12,7 +12,9 @@ Extracted from 009 (its item 3).
 ## Proposed solution
 
 `defineForgerVitestPlugin(options)` in `src/integrations/forger-vitest.plugin.ts`, exported
-from the package root:
+from the dedicated `./vitest` subpath (`@artstesh/forger/vitest`) — amended: the original
+package-root re-export pulled `path`/`typescript` into browser bundles and poisoned
+Karma/webpack runs (FE-50, 2026-09-14):
 
 - a `pre` vite plugin: for every `.ts`/`.tsx` file containing `Forger.create` /
   `Forger.createWith` calls, applies the existing `transformer(program)` and returns the

@@ -38,9 +38,10 @@ module.exports = {
 
 ```typescript
 // vitest.config.ts — Vitest/Vite compile with esbuild and ignore tsconfig plugins;
-// register the shipped Vite plugin instead (no ts-patch needed on this route)
+// register the shipped Vite plugin instead (no ts-patch needed on this route);
+// it is exported from the dedicated browser-safe subpath, never from the package root
 import { defineConfig } from 'vitest/config';
-import { defineForgerVitestPlugin } from '@artstesh/forger';
+import { defineForgerVitestPlugin } from '@artstesh/forger/vitest';
 
 export default defineConfig({
   plugins: [defineForgerVitestPlugin({ tsconfig: 'tsconfig.spec.json' })],

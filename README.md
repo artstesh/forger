@@ -40,12 +40,14 @@ The point of this simple test is to check the result of the response of a certai
 ### Vitest / Vite pipelines
 
 Vitest compiles with esbuild, which does not run `tsconfig` `plugins` transformers — wire the
-shipped Vite plugin instead:
+shipped Vite plugin instead. The plugin lives in a dedicated subpath (importing it from the
+package root would drag Node-only modules into browser bundles, so the root entry stays
+browser-safe):
 
 ```typescript
 /** vitest.config.ts */
 import { defineConfig } from 'vitest/config';
-import { defineForgerVitestPlugin } from '@artstesh/forger';
+import { defineForgerVitestPlugin } from '@artstesh/forger/vitest';
 
 export default defineConfig({
   plugins: [defineForgerVitestPlugin({ tsconfig: 'tsconfig.spec.json' })],

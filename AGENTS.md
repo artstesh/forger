@@ -51,8 +51,8 @@ with a bare `tsc`/`jest` invocation.
 |------------------------------------------|---------------------------------------------------------------------------|
 | `src/forger.ts`                          | Public API: `Forger.create`, `Forger.createWith`, `transformerNotAppliedMessage`. |
 | `AI_SKILL.md`                            | Machine-oriented instructions for AI assistants; ships in the npm package (`files`). Must stay in sync with behavior — update together with the matching docs topics. |
-| `src/index.ts`                           | Package exports.                                                           |
-| `src/integrations/forger-vitest.plugin.ts` | Vite plugin (`defineForgerVitestPlugin`) for Vitest/esbuild pipelines.   |
+| `src/index.ts`                           | Package exports. Must stay free of Node-only modules (browser-safe entry). |
+| `src/integrations/forger-vitest.plugin.ts` | Vite plugin (`defineForgerVitestPlugin`) for Vitest/esbuild pipelines; exported only via the `./vitest` subpath (`@artstesh/forger/vitest`), never re-exported from `src/index.ts` — it imports `path`/`typescript` at load and would break browser bundles. |
 | `src/factories/`                         | Runtime factories, one per type kind; `MainFactory` dispatches to the first applicable. |
 | `src/factories/i-type.factory.ts`        | The factory contract: `isApplicable()` / `produce()`.                      |
 | `src/utils/transformer.ts`               | Compile-time transformer entry point.                                      |
